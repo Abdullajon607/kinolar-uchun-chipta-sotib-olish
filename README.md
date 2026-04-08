@@ -1,0 +1,1 @@
+# kinolar-uchun-chipta-sotib-olish
