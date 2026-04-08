@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Django settings for config project.
 
@@ -39,15 +38,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-=======
-# Add cinema app to INSTALLED_APPS
-INSTALLED_APPS = [
-    # ... existing apps
->>>>>>> 690130e54369dabca1e69475202338b06fd68265
     'cinema',
 ]
 
-# Configure Templates Directory
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'config.urls'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -55,17 +60,16 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                # ... existing context processors
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
 
-# Add STATIC_ROOT setting
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+WSGI_APPLICATION = 'config.wsgi.application'
 
-<<<<<<< HEAD
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -127,8 +131,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Session configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 1209600  # 2 hafta
-=======
-# Add MEDIA settings
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
->>>>>>> 690130e54369dabca1e69475202338b06fd68265
