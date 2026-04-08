@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: var(--primary); font-size: 32px; margin: 0; font-weight: 900; tracking-tighter: -0.05em;">Cyber-Kino</h1>
+    <p style="color: #666; font-size: 11px; text-transform: uppercase; margin-top: 5px; letter-spacing: 2px;">Tizimga kirish</p>
+</div>
+
+{% if messages %}
+    <div style="margin-bottom: 20px;">
+        {% for message in messages %}
+            <div style="padding: 12px; border-radius: 10px; background: rgba(255, 180, 171, 0.1); border: 1px solid rgba(255, 180, 171, 0.2); color: #ffb4ab; font-size: 12px; text-align: center; font-style: italic;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    
+    <div class="input-group">
+        <label>Login yoki Telefon</label>
+        <input type="text" name="username" class="input-style" placeholder="admin yoki +998..." required>
+    </div>
+
+    <div class="input-group">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Parol</label>
+            <a href="{% url 'password_reset' %}" style="color: var(--primary); font-size: 10px; text-decoration: none; font-weight: bold;">Unutdingizmi?</a>
+        </div>
+        <input type="password" name="password" class="input-style" placeholder="••••••••" required>
+    </div>
+
+    <button type="submit" class="primary-btn">Kirish</button>
+</form>
+
+<div style="text-align: center; margin-top: 25px; font-size: 12px;">
+    <span style="color: #555;">Profilingiz yo'qmi?</span> 
+    <a href="{% url 'register' %}" style="color: var(--primary); text-decoration: none; font-weight: bold; margin-left: 5px;">Ro'yxatdan o'tish</a>
+</div>
+{% endblock %}

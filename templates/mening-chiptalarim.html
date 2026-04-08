@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cyber-Kino | Mening Chiptalarim</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-container': '#00285c',
+              'on-surface': '#e5e2e1',
+              'on-primary-fixed': '#001a41',
+              'on-background': '#e5e2e1',
+              'on-tertiary-fixed-variant': '#7c2e00',
+              'on-secondary-fixed': '#001a41',
+              secondary: '#adc6ff',
+              'tertiary-fixed': '#ffdbcc',
+              'on-tertiary-container': '#4c1a00',
+              background: '#131313',
+              'inverse-on-surface': '#313030',
+              'on-tertiary': '#571e00',
+              'inverse-surface': '#e5e2e1',
+              tertiary: '#ffb595',
+              'secondary-container': '#26467d',
+              'surface-container-highest': '#353534',
+              'on-primary': '#002e69',
+              'tertiary-container': '#ef6719',
+              'surface-variant': '#353534',
+              'surface-container-high': '#2a2a2a',
+              'on-error-container': '#ffdad6',
+              'secondary-fixed-dim': '#adc6ff',
+              'surface-dim': '#131313',
+              'surface-container': '#201f1f',
+              'surface-container-low': '#1c1b1b',
+              'on-tertiary-fixed': '#351000',
+              surface: '#131313',
+              'surface-bright': '#393939',
+              'on-secondary-fixed-variant': '#26467d',
+              'on-secondary': '#082f65',
+              'outline-variant': '#414755',
+              'surface-container-lowest': '#0e0e0e',
+              'on-primary-fixed-variant': '#004493',
+              'on-error': '#690005',
+              'error-container': '#93000a',
+              'primary-fixed': '#d8e2ff',
+              'primary-fixed-dim': '#adc6ff',
+              'secondary-fixed': '#d8e2ff',
+              error: '#ffb4ab',
+              'primary-container': '#4b8eff',
+              'on-secondary-container': '#98b5f3',
+              outline: '#8b90a0',
+              'on-surface-variant': '#c1c6d7',
+              'tertiary-fixed-dim': '#ffb595',
+              primary: '#adc6ff',
+              'inverse-primary': '#005bc1',
+              'surface-tint': '#adc6ff'
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px'
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .glass-card {
+        background: rgba(53, 53, 52, 0.4);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+      .perforated-edge {
+        background-image: radial-gradient(circle at 0px 50%, transparent 10px, #1c1b1b 10px);
+        background-size: 20px 20px;
+        background-position: 0 0;
+      }
+      .ticket-depth {
+        transform: perspective(1000px) rotateX(2deg);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .ticket-depth:hover {
+        transform: perspective(1000px) rotateX(0deg) translateY(-4px);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .btn-wallet {
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-wallet:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface min-h-screen flex flex-col pb-24">
+    <!-- TopAppBar Shell -->
+    <header class="bg-neutral-950/70 backdrop-blur-xl fixed top-0 w-full z-50 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <div class="flex justify-between items-center px-6 py-4 w-full">
+        <div class="flex items-center gap-4">
+          <button class="text-blue-400 hover:text-blue-300 transition-colors duration-300"><span class="material-symbols-outlined" data-icon="menu">menu</span></button>
+          <h1 class="text-2xl font-bold tracking-tighter text-blue-500 font-['Inter']">Cyber-Kino</h1>
+        </div>
+        <div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden cubic-bezier(0.16, 1, 0.3, 1) scale-95 hover:brightness-110">
+          <img alt="Profile" class="w-full h-full object-cover" data-alt="Portrait of a professional man in high-end tech environment, soft blue atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA5RtS5uR-C3kPsrfqXEWHQzkYpqznuwWQKo784d7x80EpSReoLTj6cf-RedjyR4lNLQIq37lef3YKY2urxhdY9XmnIdg7-L6ZmXnwQS8gDCbIA8YwnPtb9zIofViZlDdUDH-QT18Aoy8gGHJ0Gs7pafTGlAFMUovtJR6P4wErsmBGO_tTJuEk44HFvcHzwT0jlyTsjMkMt_8mmfscAnHMKG5Ri4jfM9MtOgsP4n75LRtB5JdIhlHXg1Io-0i_emMiGuv0NlgkqFM" />
+        </div>
+      </div>
+    </header>
+    <main class="mt-24 px-6 max-w-4xl mx-auto w-full">
+      <!-- Page Headline -->
+      <div class="mb-10">
+        <span class="text-[11px] uppercase tracking-[0.2em] text-blue-400 font-bold mb-2 block">Xizmatlar</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface leading-none">Mening Chiptalarim</h2>
+      </div>
+      <!-- Featured Active Ticket Detail -->
+      <section class="mb-16">
+        <div class="ticket-depth glass-card rounded-[32px] overflow-hidden flex flex-col md:flex-row relative">
+          <!-- Movie Visual Side -->
+          <div class="w-full md:w-2/5 h-64 md:h-auto relative">
+            <img alt="Movie Poster" class="w-full h-full object-cover" data-alt="Cinematic movie poster for a sci-fi thriller featuring neon cityscapes and a mysterious silhouette, deep blue and orange palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQQjYj6DWt4x5M0TMxy70gZqOfDsSRQ94Zn71h_kOSfAf39qXaBrmjD8lIUiJigIgKwBhW4QZLii4aPGt_jVjva5c7EvdiwsPTwMXVMii71HIBgxZYha54rzmNRpy6rD-FTZ6TvSVbnZtotxOX5XMjaWQS9fFkRjGIijN6Tr_tn0Brk1NUfV-zNnLwnsT2Zg1ZTOC8bcr-G84dFhWRUCeBiWssgZOL5grmjiWXwFYZWph5mcpeh6BIWB3jHNp_6HNGOS5utG2zm5Y" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div class="absolute bottom-6 left-6">
+              <span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">IMAX 3D</span>
+            </div>
+          </div>
+          <!-- Ticket Content Side -->
+          <div class="flex-1 p-8 flex flex-col justify-between bg-surface-container-low/40">
+            <div>
+              <h3 class="text-3xl font-bold tracking-tight mb-1">Duna: Ikkinchi Qism</h3>
+              <p class="text-on-surface-variant text-sm mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                Magic City Hall, Toshkent
+              </p>
+              <div class="grid grid-cols-2 gap-6 mb-8">
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-1">Sana</p>
+                  <p class="font-semibold">24 Oktabr, 2024</p>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-1">Vaqt</p>
+                  <p class="font-semibold">19:30</p>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-1">Qator</p>
+                  <p class="font-semibold">08</p>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-1">O'rindiq</p>
+                  <p class="font-semibold">12, 13</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between border-t border-dashed border-outline-variant pt-6">
+              <div class="flex flex-col">
+                <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-2">Skanerlash uchun</p>
+                <div class="w-24 h-24 bg-white p-2 rounded-xl">
+                  <img alt="QR Code" class="w-full h-full object-contain" data-alt="Digital square QR code with intricate black patterns on a clean white background, high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgzk0DazGE7-3RCTYUwt5Eza-iZRaOLHvBXZpjNnIl-POANcP5CCU_-79cx7UD7rOYduNHQgvI0M1jdA59I6gY-Yw6q6o0YsHH_1ddI2QhnC5WVZxc9jlLw8rv8SBJRnLSgDVvtd6vGUtW2ISHSXjAYZGEgFMyI61Nx3o5KLtN4EGcXHhTualiW9HgbIgccUjDxhJsOTR9hGUpQczrXb9hs30Q3kUKeKB36hf8q8WC_xa2oiP-4XTMpOEZu3ml2JAo8-2wqDsq-Bk" />
+                </div>
+              </div>
+              <div class="flex flex-col items-end gap-3 self-end">
+                <div class="flex gap-2">
+                  <button class="btn-wallet flex items-center justify-center p-2 rounded-lg border border-neutral-700 text-on-surface" title="PDF formatda yuklab olish"><span class="material-symbols-outlined text-[20px]" data-icon="picture_as_pdf">picture_as_pdf</span></button>
+                  <button class="btn-wallet flex items-center justify-center p-2 rounded-lg border border-neutral-700 text-on-surface" title="Apple/Google Wallet-ga qo'shish"><span class="material-symbols-outlined text-[20px]" data-icon="account_balance_wallet">account_balance_wallet</span></button>
+                </div>
+                <div class="text-right">
+                  <p class="text-[10px] uppercase tracking-wider text-neutral-500 mb-1">ID raqami</p>
+                  <p class="font-mono text-sm tracking-widest text-blue-400">CK-992841-B</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Perforated Line Decoration (Visual) -->
+          <div class="hidden md:block absolute top-0 bottom-0 left-[40%] w-[1px] border-l-2 border-dashed border-neutral-800/50"></div>
+        </div>
+      </section>
+      <!-- Ticket Gallery Grid -->
+      <h4 class="text-xl font-bold mb-6 tracking-tight flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-400" data-icon="history">history</span>
+        O'tgan seanslar
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Ticket Item 1 -->
+        <div class="group relative bg-surface-container-low rounded-2xl p-6 flex gap-4 items-center hover:bg-surface-container transition-all duration-300">
+          <div class="w-20 h-28 rounded-xl overflow-hidden shrink-0">
+            <img alt="Oppenheimer" class="w-full h-full object-cover" data-alt="Dramatic film poster close-up of a man looking intense, fiery orange and deep black shadows, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEq8M8Ke2mFx6pK0SSqoV0wQcIBweQ3FVgDfht07i9G6qjxiLxlXRD6RfTZeq5kDYrHI7ubFVv0ja7k-mWpk99ZzWtlsGqXPufKLl31y68-6m1c3niXGZpMfehJcz_zztgrKIktgtPetFoa3qg_udS15EFX22MxNDjb5cS08pcbDOljSfqcf0Vj2z5YLZ7xC5UpQk7FVxv7aKtrGHDPlSGr5bSUKdCvDW9C2X6fXDKYeflw5UKQ4yxihpaExf_qCroUEtkaYfXIRg" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h5 class="font-bold text-lg mb-1 group-hover:text-blue-400 transition-colors truncate">Oppenheimer</h5>
+            <p class="text-xs text-neutral-500 mb-3">12 Avg, 2024 • 21:00</p>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-[10px] px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">TUGALLANGAN</span>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn-wallet flex items-center justify-center p-1.5 rounded-md border border-neutral-700/50 text-neutral-400 hover:text-on-surface" title="PDF yuklab olish"><span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span></button>
+              <button class="btn-wallet flex items-center justify-center p-1.5 rounded-md border border-neutral-700/50 text-neutral-400 hover:text-on-surface" title="Wallet-ga qo'shish"><span class="material-symbols-outlined text-[18px]" data-icon="account_balance_wallet">account_balance_wallet</span></button>
+            </div>
+          </div>
+          <button class="material-symbols-outlined text-neutral-600 hover:text-on-surface ml-auto" data-icon="chevron_right">chevron_right</button>
+        </div>
+        <!-- Ticket Item 2 -->
+        <div class="group relative bg-surface-container-low rounded-2xl p-6 flex gap-4 items-center hover:bg-surface-container transition-all duration-300">
+          <div class="w-20 h-28 rounded-xl overflow-hidden shrink-0">
+            <img alt="The Dark Knight" class="w-full h-full object-cover" data-alt="Iconic movie poster with blue lighting and a bat symbol in the clouds above a dark city skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnKhrE8D_wN8bLWAm0AA25H1jnwCE9jaLymUOW_NrUHKRPUxwN2qpta-oK87DXJjm89MGaJ_vWRGgkhA8sgsIJrdKlP930I5jTU5xecFWIssqpETjf7wYie3xxHCuiwlvYS3U71linGF7iraXC7khSIgEuR_zcVajVXU21RnhgaFJ9O6XGT6J7YgCysKyr1K8aSkOsIQSnjWj4EPFBlNVs_U7HWwr0abvQzRkF0EV09fws4iGZjCkBvKDVGSWBdqzYHGg3FxazSi0" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h5 class="font-bold text-lg mb-1 group-hover:text-blue-400 transition-colors truncate">The Dark Knight</h5>
+            <p class="text-xs text-neutral-500 mb-3">05 Iyun, 2024 • 18:00</p>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-[10px] px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">TUGALLANGAN</span>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn-wallet flex items-center justify-center p-1.5 rounded-md border border-neutral-700/50 text-neutral-400 hover:text-on-surface" title="PDF yuklab olish"><span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span></button>
+              <button class="btn-wallet flex items-center justify-center p-1.5 rounded-md border border-neutral-700/50 text-neutral-400 hover:text-on-surface" title="Wallet-ga qo'shish"><span class="material-symbols-outlined text-[18px]" data-icon="account_balance_wallet">account_balance_wallet</span></button>
+            </div>
+          </div>
+          <button class="material-symbols-outlined text-neutral-600 hover:text-on-surface ml-auto" data-icon="chevron_right">chevron_right</button>
+        </div>
+      </div>
+    </main>
+    <!-- BottomNavBar Shell -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 bg-neutral-900/60 backdrop-blur-2xl rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.6)]">
+      <div class="flex justify-around items-center px-4 py-3 pb-6">
+        <!-- Bosh sahifa -->
+        <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all active:scale-90" href="#">
+          <span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+          <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Bosh sahifa</span>
+        </a>
+        <!-- Qidiruv -->
+        <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all active:scale-90" href="#">
+          <span class="material-symbols-outlined mb-1" data-icon="search">search</span>
+          <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Qidiruv</span>
+        </a>
+        <!-- Chiptalarim (ACTIVE) -->
+        <a class="flex flex-col items-center justify-center text-blue-400 after:content-['\u2022'] after:text-[10px] after:mt-0.5 active:scale-90" href="#">
+          <span class="material-symbols-outlined mb-1" data-icon="confirmation_number" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+          <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-bold">Chiptalarim</span>
+        </a>
+        <!-- Profil -->
+        <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all active:scale-90" href="#">
+          <span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+          <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Profil</span>
+        </a>
+      </div>
+    </nav>
+  </body>
+</html>

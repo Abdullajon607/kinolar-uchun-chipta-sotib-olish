@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cyber-Kino | Film Tafsilotlari</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-container': '#00285c',
+              'on-surface': '#e5e2e1',
+              'on-primary-fixed': '#001a41',
+              'on-background': '#e5e2e1',
+              'on-tertiary-fixed-variant': '#7c2e00',
+              'on-secondary-fixed': '#001a41',
+              secondary: '#adc6ff',
+              'tertiary-fixed': '#ffdbcc',
+              'on-tertiary-container': '#4c1a00',
+              background: '#131313',
+              'inverse-on-surface': '#313030',
+              'on-tertiary': '#571e00',
+              'inverse-surface': '#e5e2e1',
+              tertiary: '#ffb595',
+              'secondary-container': '#26467d',
+              'surface-container-highest': '#353534',
+              'on-primary': '#002e69',
+              'tertiary-container': '#ef6719',
+              'surface-variant': '#353534',
+              'surface-container-high': '#2a2a2a',
+              'on-error-container': '#ffdad6',
+              'secondary-fixed-dim': '#adc6ff',
+              'surface-dim': '#131313',
+              'surface-container': '#201f1f',
+              'surface-container-low': '#1c1b1b',
+              'on-tertiary-fixed': '#351000',
+              surface: '#131313',
+              'surface-bright': '#393939',
+              'on-secondary-fixed-variant': '#26467d',
+              'on-secondary': '#082f65',
+              'outline-variant': '#414755',
+              'surface-container-lowest': '#0e0e0e',
+              'on-primary-fixed-variant': '#004493',
+              'on-error': '#690005',
+              'error-container': '#93000a',
+              'primary-fixed': '#d8e2ff',
+              'primary-fixed-dim': '#adc6ff',
+              'secondary-fixed': '#d8e2ff',
+              error: '#ffb4ab',
+              'primary-container': '#4b8eff',
+              'on-secondary-container': '#98b5f3',
+              outline: '#8b90a0',
+              'on-surface-variant': '#c1c6d7',
+              'tertiary-fixed-dim': '#ffb595',
+              primary: '#adc6ff',
+              'inverse-primary': '#005bc1',
+              'surface-tint': '#adc6ff'
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '12px',
+              xl: '24px',
+              full: '9999px'
+            },
+            fontFamily: {
+              headline: ['Inter'],
+              body: ['Inter'],
+              label: ['Inter']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #131313;
+        color: #e5e2e1;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(53, 53, 52, 0.4);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-primary-container/30">
+    <!-- Top Navigation Anchor (Manual Suppression Applied for Task Focus) -->
+    <header class="bg-neutral-950/70 backdrop-blur-xl fixed top-0 w-full z-50 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <div class="flex justify-between items-center px-6 py-4 w-full">
+        <div class="flex items-center gap-4">
+          <button class="text-neutral-400 hover:text-blue-300 transition-colors duration-300"><span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span></button>
+          <h1 class="text-2xl font-bold tracking-tighter text-blue-500 font-['Inter']">Cyber-Kino</h1>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-white/10">
+          <img alt="Profile" class="w-full h-full object-cover" data-alt="minimalist 3d avatar of a young tech professional with clean lines and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwVP91Ehs56iDz8gK6gOBAdalqhpQ-kwn2MoVzO3gCVa1GBn6HX_kG2ACo5_MFpeH58r2EV6qnR6PYXSyc2mbj0e3hBVkG8Ck6g146pWfXWpaztE5nNxVIiGk0SBeKZfdX3fD5nUaHRp3NYriUaY0QseIPtzev2xF8mrzr1Ev16GRWWmgAF5skQDHf1EMLhujvxQ_QJYCX4bg37w_XPQWcGUXcCIG0umJXxKx2rsKDz1VaF8riP9j-geGhaqCF-omKuJAqcdUizvg" />
+        </div>
+      </div>
+    </header>
+    <main class="pb-32">
+      <!-- Hero Section: Backdrop Image -->
+      <section class="relative h-[530px] w-full overflow-hidden">
+        <div class="absolute inset-0 z-0">
+          <img alt="Movie Poster" class="w-full h-full object-cover" data-alt="cinematic widescreen shot of a futuristic neon city under heavy rain with dramatic deep blue and orange backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3lwNri-t5p-oJj-FasNbfBlElgpNQhShAPP6ZPQpp2X4kH7tTkE-CWoNKwFXnm9rRd5T5S7HZz73nmkdW8K_vV_ZXLDkN9Xdtch5go04wVW1Len9r9CSPDUWRVk3eAg06aM-2YXaLU_rIhAsyjV8WteHqTPRbHJ-QQ3y_Eg4zWcGl0EuitlxOC2P2pXDajULP0qGAlP-sYdsk2Wjnxx7NxJXdmPb9x4YJVQIidQcZJp-uVBMDTVTzjj5OcFB7XFzA4i3jKlehNH8" />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+        </div>
+        <!-- Title & Metadata -->
+        <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 z-10">
+          <div class="flex flex-col gap-2">
+            <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-400 font-label">Ilmiy fantastika • 2s 14daq</span>
+            <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface leading-tight">Neon Shahar: Uyg'onish</h2>
+            <div class="flex items-center gap-6 mt-4">
+              <div class="flex items-center gap-1.5 bg-surface-container-highest/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/5">
+                <span class="material-symbols-outlined text-yellow-500 text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="text-sm font-bold">8.9</span>
+              </div>
+              <a class="flex items-center gap-2 group" href="#">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-primary-container text-on-primary-container group-hover:scale-110 transition-transform duration-300">
+                  <span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                </div>
+                <span class="text-sm font-semibold tracking-wide text-on-surface group-hover:text-primary transition-colors">Treylerni ko'rish</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Content Shell -->
+      <div class="px-6 md:px-12 mt-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+        <!-- Left Side: Synopsis -->
+        <div class="md:col-span-7 space-y-8">
+          <section>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-4 font-label">Sinopsis</h3>
+            <p class="text-on-surface-variant text-lg leading-relaxed font-light">2099-yil. Insoniyat va sun'iy intellekt o'rtasidagi chegara butunlay yo'qolgan dunyoda, sobiq detektiv yashirin fitnani ochishga majbur bo'ladi. Ushbu sayohat uni nafaqat haqiqatga, balki o'zligini qaytadan kashf etishga yetaklaydi. Vizual jihatdan boy va falsafiy chuqur asar.</p>
+          </section>
+          <section class="grid grid-cols-2 gap-4">
+            <div class="p-6 rounded-xl bg-surface-container-low border border-white/5">
+              <span class="text-[10px] uppercase tracking-widest text-neutral-500 block mb-1">Rejissyor</span>
+              <span class="text-sm font-semibold">Alisher Navoiyzoda</span>
+            </div>
+            <div class="p-6 rounded-xl bg-surface-container-low border border-white/5">
+              <span class="text-[10px] uppercase tracking-widest text-neutral-500 block mb-1">Yil</span>
+              <span class="text-sm font-semibold">2024</span>
+            </div>
+          </section>
+        </div>
+        <!-- Right Side: Session Selection -->
+        <div class="md:col-span-5 space-y-10">
+          <!-- Date Picker -->
+          <div>
+            <div class="flex justify-between items-end mb-4">
+              <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500 font-label">Sana tanlang</h3>
+            </div>
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+              <!-- Active Date -->
+              <button class="flex-shrink-0 w-16 h-20 flex flex-col items-center justify-center rounded-xl bg-primary-container text-on-primary-container shadow-[0_0_20px_rgba(75,142,255,0.3)] border border-blue-400/20">
+                <span class="text-[10px] font-bold uppercase opacity-80">Sen</span>
+                <span class="text-xl font-extrabold tracking-tighter">14</span>
+              </button>
+              <!-- Inactive Date -->
+              <button class="flex-shrink-0 w-16 h-20 flex flex-col items-center justify-center rounded-xl glass-panel text-on-surface hover:bg-surface-container-highest transition-colors">
+                <span class="text-[10px] font-bold uppercase text-neutral-500">Sen</span>
+                <span class="text-xl font-extrabold tracking-tighter">15</span>
+              </button>
+              <button class="flex-shrink-0 w-16 h-20 flex flex-col items-center justify-center rounded-xl glass-panel text-on-surface hover:bg-surface-container-highest transition-colors">
+                <span class="text-[10px] font-bold uppercase text-neutral-500">Sen</span>
+                <span class="text-xl font-extrabold tracking-tighter">16</span>
+              </button>
+              <button class="flex-shrink-0 w-16 h-20 flex flex-col items-center justify-center rounded-xl glass-panel text-on-surface hover:bg-surface-container-highest transition-colors">
+                <span class="text-[10px] font-bold uppercase text-neutral-500">Sen</span>
+                <span class="text-xl font-extrabold tracking-tighter">17</span>
+              </button>
+            </div>
+          </div>
+          <!-- Time Slots Grid -->
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-4 font-label">Vaqt tanlang</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <button class="py-4 px-2 rounded-lg glass-panel text-sm font-medium hover:border-blue-400/50 transition-all text-center">10:30</button>
+              <button class="py-4 px-2 rounded-lg glass-panel text-sm font-medium hover:border-blue-400/50 transition-all text-center">13:00</button>
+              <button class="py-4 px-2 rounded-lg glass-panel text-sm font-medium hover:border-blue-400/50 transition-all text-center">15:45</button>
+              <!-- Selected Time Slot -->
+              <button class="py-4 px-2 rounded-lg bg-surface-container-highest border border-blue-400 text-blue-400 shadow-[0_0_15px_rgba(75,142,255,0.2)] text-sm font-bold text-center">18:20</button>
+              <button class="py-4 px-2 rounded-lg glass-panel text-sm font-medium hover:border-blue-400/50 transition-all text-center">21:00</button>
+              <button class="py-4 px-2 rounded-lg glass-panel text-sm font-medium hover:border-blue-400/50 transition-all text-center">23:30</button>
+            </div>
+          </div>
+          <!-- Ticket Type Info -->
+          <div class="p-6 rounded-2xl bg-surface-container-lowest border border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-tertiary" data-icon="confirmation_number">confirmation_number</span>
+              </div>
+              <div>
+                <p class="text-[11px] text-neutral-500 uppercase tracking-widest font-bold">Narxi</p>
+                <p class="text-lg font-bold">45 000 UZS</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded">Sotuvda bor</span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Bottom Action Bar -->
+    <div class="fixed bottom-0 left-0 w-full px-6 py-8 bg-gradient-to-t from-background via-background to-transparent z-40">
+      <div class="max-w-7xl mx-auto">
+        <button class="w-full h-16 rounded-xl bg-gradient-to-b from-primary-container to-blue-600 text-on-primary-container font-bold text-lg tracking-tight shadow-[0_12px_40px_rgba(0,122,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+          <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+          Chipta band qilish
+        </button>
+      </div>
+    </div>
+    <!-- Hidden Bottom Nav (Suppressed for focused booking intent) -->
+    <!-- The Shell Visibility Rule: SUPPRESSED for sub-page task-focused checkout -->
+  </body>
+</html>
