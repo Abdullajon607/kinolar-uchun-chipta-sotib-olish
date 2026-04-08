@@ -1,189 +1,62 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html class="dark" lang="uz">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              'tertiary-fixed-dim': '#ffb595',
-              'primary-container': '#4b8eff',
-              'on-tertiary-fixed-variant': '#7c2e00',
-              'on-secondary-fixed-variant': '#26467d',
-              secondary: '#adc6ff',
-              'on-error-container': '#ffdad6',
-              'secondary-container': '#26467d',
-              'surface-container': '#201f1f',
-              'secondary-fixed-dim': '#adc6ff',
-              background: '#131313',
-              'on-primary': '#002e69',
-              outline: '#8b90a0',
-              error: '#ffb4ab',
-              surface: '#131313',
-              'on-tertiary': '#571e00',
-              'on-error': '#690005',
-              'on-background': '#e5e2e1',
-              'outline-variant': '#414755',
-              'surface-bright': '#393939',
-              'tertiary-container': '#ef6719',
-              'tertiary-fixed': '#ffdbcc',
-              'secondary-fixed': '#d8e2ff',
-              'inverse-on-surface': '#313030',
-              'inverse-surface': '#e5e2e1',
-              'on-surface-variant': '#c1c6d7',
-              tertiary: '#ffb595',
-              'surface-tint': '#adc6ff',
-              'on-secondary': '#082f65',
-              'surface-container-high': '#2a2a2a',
-              'on-primary-fixed-variant': '#004493',
-              primary: '#adc6ff',
-              'surface-container-lowest': '#0e0e0e',
-              'primary-fixed-dim': '#adc6ff',
-              'primary-fixed': '#d8e2ff',
-              'on-secondary-container': '#98b5f3',
-              'error-container': '#93000a',
-              'surface-container-highest': '#353534',
-              'on-secondary-fixed': '#001a41',
-              'inverse-primary': '#005bc1',
-              'on-tertiary-container': '#4c1a00',
-              'on-surface': '#e5e2e1',
-              'on-primary-container': '#00285c',
-              'surface-dim': '#131313',
-              'surface-container-low': '#1c1b1b',
-              'on-tertiary-fixed': '#351000',
-              'surface-variant': '#353534',
-              'on-primary-fixed': '#001a41'
-            },
-            borderRadius: {
-              DEFAULT: '0.25rem',
-              lg: '0.5rem',
-              xl: '0.75rem',
-              full: '9999px'
-            },
-            fontFamily: {
-              headline: ['Inter'],
-              body: ['Inter'],
-              label: ['Inter']
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #131313;
-      }
-      .glass-panel {
-        background: rgba(28, 27, 27, 0.4);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-      .ghost-border {
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      }
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .success-glow {
-        box-shadow: 0 0 40px rgba(0, 122, 255, 0.2);
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
-  </head>
-  <body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
-    <!-- TopAppBar -->
-    <header class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl flex items-center justify-between px-6 h-16 w-full shadow-[0_4px_30px_rgba(0,0,0,0.5)] ring-1 ring-white/5">
-      <div class="flex items-center gap-4">
-        <button class="text-[#ADC6FF] hover:brightness-110 transition-all duration-300 active:scale-95"><span class="material-symbols-outlined" data-icon="menu">menu</span></button>
-        <span class="text-2xl font-black tracking-tighter text-[#E5E2E1] font-['Inter']">Cyber-Kino</span>
-      </div>
-      <div class="flex items-center">
-        <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden ring-1 ring-white/10">
-          <img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a stylish young man with a neutral expression against a clean studio background, minimalist lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUsuDSsifjHylB1BchLBSNCkHtFfTTi47eAxn0h6oceCKPqY_z5UkGokTFMpjToEOXhyarYU5Fx8uSgdiezDz66mCKSFvMbGBh5J-Yw1-9zfGEylazQ7sDl0anxcKzTIWUmwbBZbFZLLXN_gAiePlN8jm-b7QLJOUg6B6P_sppPbO5pv5df2rhHbsztPDfPrKAn91NjGEHd94nzRSyBixHEpT9L_jTRkPnxn1QFWxLOhcP0MN6a8VOGmUIjB4AYr7-I7dXPJeSz4o" />
-        </div>
-      </div>
-    </header>
-    <!-- Main Content Canvas -->
-    <main class="flex-grow flex flex-col items-center justify-center px-6 pt-20 pb-32 relative overflow-hidden">
-      <!-- Abstract Background Glow -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary-container/10 blur-[120px] rounded-full -z-10"></div>
-      <div class="w-full max-w-md text-center">
+{% block title %}Cyber-Kino | Muvaffaqiyat{% endblock %}
+
+{% block content %}
+<main class="flex-grow flex flex-col items-center justify-center px-6 pt-20 pb-32 relative overflow-hidden min-h-screen">
+    <!-- Abstract Background Glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary-container/10 blur-[120px] rounded-full -z-10"></div>
+    
+    <div class="w-full max-w-md text-center">
         <!-- Success Icon -->
         <div class="mb-8 relative inline-block">
-          <div class="w-24 h-24 rounded-full bg-primary-container/20 flex items-center justify-center success-glow relative z-10">
-            <span class="material-symbols-outlined text-primary-container !text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-          </div>
-          <div class="absolute -inset-4 bg-primary-container/5 rounded-full blur-2xl -z-0"></div>
+            <div class="w-24 h-24 rounded-full bg-primary-container/20 flex items-center justify-center relative z-10 shadow-[0_0_40px_rgba(0,122,255,0.2)]">
+                <span class="material-symbols-outlined text-primary-container !text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <div class="absolute -inset-4 bg-primary-container/5 rounded-full blur-2xl -z-0"></div>
         </div>
+
         <!-- Success Message -->
         <div class="space-y-3 mb-12">
-          <h1 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline leading-tight">Xarid muvaffaqiyatli yakunlandi!</h1>
-          <p class="text-on-surface-variant font-body text-lg max-w-[280px] mx-auto">Chiptalaringiz tayyor. Kinodan bahra oling!</p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline leading-tight">Xarid muvaffaqiyatli yakunlandi!</h1>
+            <p class="text-on-surface-variant font-body text-lg max-w-[280px] mx-auto">Chiptalaringiz tayyor. Kinodan bahra oling!</p>
         </div>
-        <!-- Bento-Style Info Cards -->
-        <div class="grid grid-cols-2 gap-4 mb-12 text-left">
-          <div class="col-span-2 glass-panel ghost-border rounded-xl p-5 flex items-center gap-4">
-            <div class="w-14 h-20 rounded-lg overflow-hidden shrink-0">
-              <img alt="Movie Poster" class="w-full h-full object-cover" data-alt="Cinematic wide-angle film poster of a lone astronaut on a red desert planet under a dark starry sky, deep noir aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqOB0_U5mLXXVuoPxFGIcayzbPM7cZcK7H0VL_Whnjpnbl2BFiYd5gWkMRB2hYw7oBeqW69uCLPNeXMpTaSB71jGiG0pQgBbsmmaulqGI_RgeE7qg2aFXfG1Yv2sNp2v-aBAajdNB4iizrKe8yqNHljrM3O5osE4XGbqvukB6ArW0eUwZVRm6Nj7yg73VhTa5pi2fByPhIccOOa1gdKMqK6Sh-wpKGHHzDPcnbXj1m6TFBha-aftDpqic6ozJhzV4_uUn0VNpcVqc" />
+
+        <!-- Info Card -->
+        <div class="grid grid-cols-1 gap-4 mb-12 text-left">
+            <div class="glass-card rounded-xl p-5 flex items-center gap-4">
+                <div class="w-14 h-20 rounded-lg overflow-hidden shrink-0">
+                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=100&h=150&fit=crop" alt="Movie">
+                </div>
+                <div>
+                    <p class="text-[10px] font-label uppercase tracking-widest text-primary mb-1">Film</p>
+                    <h3 class="font-bold text-on-surface leading-tight">Dune: Ikkinchi Qism</h3>
+                    <p class="text-xs text-on-surface-variant mt-1">IMAX • 18:30 • 2ta chipta</p>
+                </div>
             </div>
-            <div>
-              <p class="text-[10px] font-label uppercase tracking-widest text-primary mb-1">Film</p>
-              <h3 class="font-bold text-on-surface leading-tight">Interstellar: Qaytish</h3>
-              <p class="text-xs text-on-surface-variant mt-1">Zal 4 • 18:30 • 2ta chipta</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-card rounded-xl p-4">
+                    <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Sana</p>
+                    <p class="font-bold text-on-surface mt-1">Bugun</p>
+                </div>
+                <div class="glass-card rounded-xl p-4">
+                    <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Tranzaksiya</p>
+                    <p class="font-bold text-on-surface mt-1">#CK-98421</p>
+                </div>
             </div>
-          </div>
-          <div class="glass-panel ghost-border rounded-xl p-4 flex flex-col justify-between">
-            <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Sana</p>
-            <p class="font-bold text-on-surface mt-1">Bugun, 24-Okt</p>
-          </div>
-          <div class="glass-panel ghost-border rounded-xl p-4 flex flex-col justify-between">
-            <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Tranzaksiya</p>
-            <p class="font-bold text-on-surface mt-1">#CK-98421</p>
-          </div>
         </div>
+
         <!-- Action Buttons -->
         <div class="flex flex-col gap-4">
-          <button class="w-full py-4 bg-gradient-to-b from-primary-container to-primary-container/80 text-on-primary-container font-bold rounded-xl hover:brightness-110 active:scale-[0.98] transition-all duration-300 shadow-lg shadow-primary-container/20">Chiptalarni ko'rish</button>
-          <button class="w-full py-4 glass-panel ghost-border text-on-surface font-semibold rounded-xl hover:bg-surface-container-highest/40 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined !text-xl" data-icon="download">download</span>
-            Raqamli chekni yuklab olish
-          </button>
+            <a href="{% url 'cinema:my_tickets' %}" class="w-full py-4 bg-gradient-to-b from-primary-container to-primary-container/80 text-on-primary-container font-bold rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined !text-xl">confirmation_number</span>
+                Chiptalarimni Ko'rish
+            </a>
+            <a href="{% url 'cinema:home' %}" class="w-full py-4 glass-card text-on-surface font-semibold rounded-xl hover:bg-surface-container-highest/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined !text-xl">home</span>
+                Bosh Sahifaga Qaytish
+            </a>
         </div>
-      </div>
-    </main>
-    <!-- BottomNavBar -->
-    <!-- Suppressed on this Task-Focused screen based on "Relevance Check" rule -->
-    <!-- However, since the user explicitly asked to "Include the shared BottomNavBar", we render it but the Success screen is technically a "Focused Journey" -->
-    <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-4 px-4 bg-[#1C1B1B]/40 backdrop-blur-2xl rounded-t-[24px] shadow-[0_-8px_32px_rgba(0,0,0,0.4)] z-50">
-      <a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#E5E2E1] transition-colors" href="#">
-        <span class="material-symbols-outlined" data-icon="movie">movie</span>
-        <span class="font-['Inter'] uppercase tracking-[0.1em] text-[10px] mt-1">Asosiy</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-[#007AFF] relative after:content-['\2022'] after:absolute after:-bottom-1 after:text-lg" href="#">
-        <span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
-        <span class="font-['Inter'] uppercase tracking-[0.1em] text-[10px] mt-1">Chiptalar</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#E5E2E1] transition-colors" href="#">
-        <span class="material-symbols-outlined" data-icon="theaters">theaters</span>
-        <span class="font-['Inter'] uppercase tracking-[0.1em] text-[10px] mt-1">Kino</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#E5E2E1] transition-colors" href="#">
-        <span class="material-symbols-outlined" data-icon="person">person</span>
-        <span class="font-['Inter'] uppercase tracking-[0.1em] text-[10px] mt-1">Profil</span>
-      </a>
-    </nav>
-  </body>
-</html>
+    </div>
+</main>
+{% endblock %}

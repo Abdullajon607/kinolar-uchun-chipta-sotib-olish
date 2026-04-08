@@ -1,235 +1,343 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html class="dark" lang="uz">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Cyber-Kino | To'lov</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              'on-primary-container': '#00285c',
-              'on-surface': '#e5e2e1',
-              'on-primary-fixed': '#001a41',
-              'on-background': '#e5e2e1',
-              'on-tertiary-fixed-variant': '#7c2e00',
-              'on-secondary-fixed': '#001a41',
-              secondary: '#adc6ff',
-              'tertiary-fixed': '#ffdbcc',
-              'on-tertiary-container': '#4c1a00',
-              background: '#131313',
-              'inverse-on-surface': '#313030',
-              'on-tertiary': '#571e00',
-              'inverse-surface': '#e5e2e1',
-              tertiary: '#ffb595',
-              'secondary-container': '#26467d',
-              'surface-container-highest': '#353534',
-              'on-primary': '#002e69',
-              'tertiary-container': '#ef6719',
-              'surface-variant': '#353534',
-              'surface-container-high': '#2a2a2a',
-              'on-error-container': '#ffdad6',
-              'secondary-fixed-dim': '#adc6ff',
-              'surface-dim': '#131313',
-              'surface-container': '#201f1f',
-              'surface-container-low': '#1c1b1b',
-              'on-tertiary-fixed': '#351000',
-              surface: '#131313',
-              'surface-bright': '#393939',
-              'on-secondary-fixed-variant': '#26467d',
-              'on-secondary': '#082f65',
-              'outline-variant': '#414755',
-              'surface-container-lowest': '#0e0e0e',
-              'on-primary-fixed-variant': '#004493',
-              'on-error': '#690005',
-              'error-container': '#93000a',
-              'primary-fixed': '#d8e2ff',
-              'primary-fixed-dim': '#adc6ff',
-              'secondary-fixed': '#d8e2ff',
-              error: '#ffb4ab',
-              'primary-container': '#4b8eff',
-              'on-secondary-container': '#98b5f3',
-              outline: '#8b90a0',
-              'on-surface-variant': '#c1c6d7',
-              'tertiary-fixed-dim': '#ffb595',
-              primary: '#adc6ff',
-              'inverse-primary': '#005bc1',
-              'surface-tint': '#adc6ff'
-            },
-            borderRadius: {
-              DEFAULT: '0.25rem',
-              lg: '0.5rem',
-              xl: '12px',
-              '2xl': '16px',
-              '3xl': '24px',
-              full: '9999px'
-            },
-            fontFamily: {
-              headline: ['Inter'],
-              body: ['Inter'],
-              label: ['Inter']
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .glass-card {
-        background: rgba(53, 53, 52, 0.4);
-        backdrop-filter: blur(20px);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      }
-      .bezier-transition {
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
-  </head>
-  <body class="bg-background text-on-surface selection:bg-primary-container selection:text-white antialiased">
-    <header class="bg-neutral-950/70 backdrop-blur-xl fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 w-full shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <div class="flex items-center gap-4">
-        <button class="text-neutral-400 hover:text-blue-300 bezier-transition"><span class="material-symbols-outlined">arrow_back_ios</span></button>
-        <h1 class="text-2xl font-bold tracking-tighter text-blue-500 font-['Inter']">Cyber-Kino</h1>
-      </div>
-      <div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container-highest">
-        <img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a modern stylish person in cinematic lighting with high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_o04tJi4sPFwo_pryLWsy9RSZp_gPpdk9CofKwT0a3vBg6wBi-yXIolmGWxFOBswTm9RObAzI-oTh4aUFydNo81D-9TBOOOhlmLPpBHfoUdJBubwJpLIWzfegMLSMKDv4zn-wUIVghJHu67PRHKrp7VLd7MJ_8TD3NF5wuR4xibQ9qfPVOQtR2RsXE0QZWuf4uFTfewfrR-Qco-NIDCcgYLk36-InlKodT0kj40fZwq0jcSe2rzvCFFcNqxb51L9BsS3EpWh_n54" />
-      </div>
-    </header>
-    <main class="pt-24 pb-12 px-6 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-      <section class="lg:col-span-5 space-y-8">
+{% block title %}Cyber-Kino | To'lov{% endblock %}
+
+{% block content %}
+<main class="pt-24 pb-12 px-6 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <section class="lg:col-span-5 space-y-8">
         <div>
-          <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-medium">Buyurtma xulosasi</span>
-          <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">Chipta ma'lumotlari</h2>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-medium">Buyurtma xulosasi</span>
+            <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">Chipta ma'lumotlari</h2>
         </div>
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div class="flex gap-6 relative z-10">
-            <div class="w-32 h-44 flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl">
-              <img alt="Movie Poster" class="w-full h-full object-cover scale-105 group-hover:scale-110 bezier-transition" data-alt="cinematic film poster of a futuristic sci-fi city at night with neon lights and deep shadows in high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyg9Sj5lMqzHfFBXLvbTCdi4MVy78MypEGugG5stg7SvSGNLsQ3s3ZqkD6PCt-AngBE0iFXyR7yT4m5lK1Na03ZSeqysWDm-jS5otxTb875fVbzZ748sOTiE0_x91mwkHPWf8E7U82kmF7-7n4W3-4lyzzcRb8RicVfB1l-pX6RKFm_9UO8QdMJ8vLdUBD2v2Pyfn7oTPoQkK4pOjfKyoiio2nw4QoQtudbnGnpwQpMR0qV5yeVhegcJMd9LC6hlQrpo8ETk4QWJs" />
-            </div>
-            <div class="flex flex-col justify-between py-1">
-              <div>
-                <h3 class="text-xl font-bold tracking-tight text-white leading-tight">Dune: Ikkinchi qism</h3>
-                <p class="text-sm text-neutral-400 mt-1">IMAX • 2D • O'zbek tilida</p>
-              </div>
-              <div class="space-y-2">
-                <div class="flex items-center gap-2 text-neutral-300">
-                  <span class="material-symbols-outlined text-[18px]">event</span>
-                  <span class="text-xs font-medium">Bugun, 21:30</span>
+            <div class="flex gap-6 relative z-10">
+                <div class="w-32 h-44 flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl">
+                    {% if showtime.movie.poster %}
+                        <img class="w-full h-full object-cover" src="{{ showtime.movie.poster.url }}" alt="{{ showtime.movie.title }}">
+                    {% else %}
+                        <img class="w-full h-full object-cover" src="{{ showtime.movie.poster_url }}" alt="{{ showtime.movie.title }}">
+                    {% endif %}
                 </div>
-                <div class="flex items-center gap-2 text-neutral-300">
-                  <span class="material-symbols-outlined text-[18px]">chair</span>
-                  <span class="text-xs font-medium">Qator 12, O'rindiqlar 14, 15</span>
+                <div class="flex flex-col justify-between py-1">
+                    <div>
+                        <h3 class="text-xl font-bold tracking-tight text-white leading-tight">{{ showtime.movie.title }}</h3>
+                        <p class="text-sm text-neutral-400 mt-1">{{ showtime.hall.get_hall_type_display }} • O'zbek tilida</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-neutral-300">
+                            <span class="material-symbols-outlined text-[18px]">event</span>
+                            <span class="text-xs font-medium">{{ showtime.start_time|date:"M d, H:i" }}</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-neutral-300">
+                            <span class="material-symbols-outlined text-[18px]">chair</span>
+                            <span class="text-xs font-medium">Zal: {{ showtime.hall.name }}</span>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="mt-8 pt-6 border-t border-white/5 space-y-3">
-            <div class="flex justify-between text-sm">
-              <span class="text-neutral-500">Chiptalar (2x)</span>
-              <span class="text-neutral-200">120 000 UZS</span>
+            <div class="mt-8 pt-6 border-t border-white/5 space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-neutral-500">Chiptalar ({{ selected_seats.count }}x)</span>
+                    <span class="text-neutral-200">{{ total_price }} UZS</span>
+                </div>
+                <div class="flex justify-between items-end pt-4">
+                    <span class="text-lg font-bold text-white tracking-tight">Umumiy to'lov</span>
+                    <span class="text-2xl font-black text-blue-400 tracking-tighter">{{ final_total }} UZS</span>
+                </div>
             </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-neutral-500">Xizmat haqi</span>
-              <span class="text-neutral-200">5 000 UZS</span>
-            </div>
-            <div class="flex justify-between items-end pt-4">
-              <span class="text-lg font-bold text-white tracking-tight">Umumiy to'lov</span>
-              <span class="text-2xl font-black text-blue-400 tracking-tighter">125 000 UZS</span>
-            </div>
-          </div>
         </div>
-        <div class="bg-surface-container-low rounded-2xl p-5 flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
-            <span class="material-symbols-outlined">confirmation_number</span>
-          </div>
-          <div class="flex-1">
-            <p class="text-sm font-semibold text-on-surface">Elektron chipta</p>
-            <p class="text-xs text-neutral-500">Chiptangiz profilingizda saqlanadi</p>
-          </div>
-        </div>
-      </section>
-      <section class="lg:col-span-7 space-y-10">
+    </section>
+
+    <section class="lg:col-span-7 space-y-10">
         <div>
-          <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-medium">To'lov usuli</span>
-          <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">Kartangizni kiriting</h2>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-medium">To'lov usuli</span>
+            <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">To'lov turini tanlang</h2>
         </div>
-        <div class="space-y-8">
-          <button class="w-full h-16 bg-white rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-100 bezier-transition active:scale-[0.98]">
-            <svg class="h-6" fill="black" viewbox="0 0 100 40">
-              <path d="M42.6,20.8c0-5.7,4.6-10.3,10.3-10.3c2.7,0,5.3,1.1,7.2,3c1.9,1.9,3,4.5,3,7.2c0,5.7-4.6,10.3-10.3,10.3 C47.2,31,42.6,26.4,42.6,20.8z M58.4,20.8c0-3.3-2.6-5.8-5.6-5.8c-3,0-5.6,2.5-5.6,5.8c0,3.3,2.6,5.8,5.6,5.8 C55.8,26.5,58.4,24,58.4,20.8z"></path>
-              <path d="M78.6,20.8c0,5.1-4.1,9.3-9.1,9.3c-2.4,0-4.6-0.9-6.3-2.6c-1.7-1.7-2.6-3.9-2.6-6.3l0,0c0-5.1,4.1-9.3,9.1-9.3 C74.5,11.9,78.6,16,78.6,20.8z M74.1,20.8c0-2.8-2.2-5.1-4.8-5.1c-2.6,0-4.8,2.3-4.8,5.1c0,2.8,2.2,5.1,4.8,5.1 C71.9,25.9,74.1,23.6,74.1,20.8z"></path>
-              <path d="M12.9,20.8c0-5.4,4.4-9.8,9.8-9.8c2.6,0,5.1,1,6.9,2.9c1.8,1.8,2.8,4.3,2.8,6.9c0,5.4-4.4,9.8-9.8,9.8 C17.2,30.6,12.9,26.2,12.9,20.8z M27.8,20.8c0-3-2.4-5.4-5.2-5.4c-2.9,0-5.2,2.4-5.2,5.4c0,3,2.4,5.4,5.2,5.4 C25.4,26.2,27.8,23.8,27.8,20.8z"></path>
-              <path d="M37.8,11.9h-4.3l0,18.7h4.3L37.8,11.9z"></path>
-            </svg>
-            <span class="text-black font-semibold text-lg">Pay</span>
-          </button>
-          <div class="relative flex items-center justify-center">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-white/5"></div>
-            </div>
-            <span class="relative px-4 text-neutral-500 text-xs bg-background uppercase tracking-[0.3em]">yoki karta orqali</span>
-          </div>
-          <div class="space-y-6">
-            <div class="group">
-              <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta raqami</label>
-              <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary bezier-transition placeholder:text-neutral-700" placeholder="0000 0000 0000 0000" type="text" />
-            </div>
-            <div class="grid grid-cols-2 gap-8">
-              <div class="group">
-                <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Muddati</label>
-                <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary bezier-transition placeholder:text-neutral-700" placeholder="MM/YY" type="text" />
-              </div>
-              <div class="group">
-                <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">CVV</label>
-                <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.2em] text-white focus:ring-0 focus:border-primary bezier-transition placeholder:text-neutral-700" placeholder="***" type="password" />
-              </div>
-            </div>
-            <div class="group">
-              <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta egasining ismi</label>
-              <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.05em] text-white focus:ring-0 focus:border-primary bezier-transition placeholder:text-neutral-700" placeholder="ABDULLOH RAKHIMOV" type="text" />
-            </div>
-          </div>
-          <div class="pt-6 space-y-4">
-            <button class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] bezier-transition">To'lovni amalga oshirish</button>
-            <p class="text-[10px] text-center text-neutral-500 leading-relaxed max-w-xs mx-auto">Tugmani bosish orqali siz xarid qilish qoidalari va ommaviy ofertaga rozilik bildirasiz.</p>
-          </div>
+
+        <!-- Payment Method Tabs -->
+        <div class="flex gap-4 mb-8 border-b border-outline-variant/20">
+            <button 
+                class="payment-tab active py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-primary"
+                data-method="card"
+            >
+                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">credit_card</span>
+                Karta
+            </button>
+            <button 
+                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
+                data-method="upayx"
+            >
+                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">phone_iphone</span>
+                Upayx
+            </button>
+            <button 
+                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
+                data-method="click"
+            >
+                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">shopping_cart</span>
+                Click
+            </button>
+            <button 
+                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
+                data-method="payme"
+            >
+                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">account_balance_wallet</span>
+                Payme
+            </button>
         </div>
-      </section>
-    </main>
-    <div class="fixed bottom-0 left-0 w-full md:hidden bg-neutral-900/60 backdrop-blur-2xl flex justify-around items-center px-4 py-3 pb-safe z-50 rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.6)]">
-      <div class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all font-['Inter'] text-[11px] uppercase tracking-[0.1em]">
-        <span class="material-symbols-outlined">home</span>
-        <span>Bosh sahifa</span>
-      </div>
-      <div class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all font-['Inter'] text-[11px] uppercase tracking-[0.1em]">
-        <span class="material-symbols-outlined">search</span>
-        <span>Qidiruv</span>
-      </div>
-      <div class="flex flex-col items-center justify-center text-blue-400 after:content-['\u2022'] after:text-[10px] after:mt-0.5 font-['Inter'] text-[11px] uppercase tracking-[0.1em]">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
-        <span>Chiptalarim</span>
-      </div>
-      <div class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all font-['Inter'] text-[11px] uppercase tracking-[0.1em]">
-        <span class="material-symbols-outlined">person</span>
-        <span>Profil</span>
-      </div>
-    </div>
-  </body>
-</html>
+
+        <!-- Card Payment Method -->
+        <form id="cardForm" onsubmit="processPayment(event)" class="payment-method-form space-y-8">
+            {% csrf_token %}
+            <input type="hidden" name="payment_method" value="card">
+            
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta raqami</label>
+                    <input type="text" name="card_number" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="1234 5678 9012 3456" required>
+                    <p class="text-[10px] text-neutral-400 mt-2">Istalgan bankni kartasi qabul qilinadi</p>
+                </div>
+
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Bank nomi (ixtiyoriy)</label>
+                    <select name="bank_name" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg text-white focus:ring-0 focus:border-primary outline-none">
+                        <option value="">Tanlash...</option>
+                        <option value="Humo">Humo</option>
+                        <option value="UzCard">UzCard</option>
+                        <option value="Visa">Visa</option>
+                        <option value="Mastercard">Mastercard</option>
+                        <option value="ABL">ABL</option>
+                        <option value="Ipoteka Bank">Ipoteka Bank</option>
+                        <option value="Milliy Bank">Milliy Bank</option>
+                        <option value="Davlat Soxta Banki">Davlat Soxta Banki</option>
+                        <option value="Asaka Bank">Asaka Bank</option>
+                        <option value="Axis Bank">Axis Bank</option>
+                        <option value="Uzbek Turk Bank">Uzbek Turk Bank</option>
+                        <option value="Trans Bank">Trans Bank</option>
+                        <option value="Barkamol Bank">Barkamol Bank</option>
+                        <option value="Yoshlar Bank">Yoshlar Bank</option>
+                        <option value="Qishloq Qurilish Bank">Qishloq Qurilish Bank</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="group">
+                        <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Muddati</label>
+                        <input type="text" name="expiry" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="MM/YY" required>
+                    </div>
+                    <div class="group">
+                        <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">CVV</label>
+                        <input type="text" name="cvv" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.2em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="123" required>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta egasining ismi</label>
+                    <input type="text" name="card_holder" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.05em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="ABDULLOH ABDULLOYEV" required>
+                </div>
+            </div>
+
+            <div class="pt-6 space-y-4">
+                <button type="submit" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">payment</span>
+                    {{ final_total }} UZS - To'lov qilish
+                </button>
+                <p class="text-[10px] text-center text-neutral-500 leading-relaxed max-w-xs mx-auto">Tugmani bosish orqali siz xarid qilish qoidalari va ommaviy ofertaga rozilik bildirasiz.</p>
+            </div>
+        </form>
+
+        <!-- Upayx Payment Method -->
+        <form id="upaxyxForm" class="payment-method-form hidden space-y-8" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="payment_method" value="upayx">
+            
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
+                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
+                <p class="text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
+                    Upayx orqali to'lovni amalga oshirish uchun tasdiqlash SMS yuboriladi.
+                </p>
+            </div>
+
+            <div class="pt-6 space-y-4">
+                <button type="submit" onclick="processUpayx(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">phone_iphone</span>
+                    {{ final_total }} UZS - To'lov qilish
+                </button>
+            </div>
+        </form>
+
+        <!-- Click Payment Method -->
+        <form id="clickForm" class="payment-method-form hidden space-y-8" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="payment_method" value="click">
+            
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
+                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
+                <p class="text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
+                    Click orqali to'lovni amalga oshirish uchun dasturga yo'naltirilasiz.
+                </p>
+            </div>
+
+            <div class="pt-6 space-y-4">
+                <button type="submit" onclick="processClick(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">shopping_cart</span>
+                    {{ final_total }} UZS - To'lov qilish
+                </button>
+            </div>
+        </form>
+
+        <!-- Payme Payment Method -->
+        <form id="paymeForm" class="payment-method-form hidden space-y-8" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="payment_method" value="payme">
+            
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
+                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
+                <p class="text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
+                    Payme orqali to'lovni amalga oshirish uchun dasturga yo'naltirilasiz.
+                </p>
+            </div>
+
+            <div class="pt-6 space-y-4">
+                <button type="submit" onclick="processPayme(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">account_balance_wallet</span>
+                    {{ final_total }} UZS - To'lov qilish
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script>
+    // Payment method switching
+    document.querySelectorAll('.payment-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const method = this.dataset.method;
+            
+            // Update active tab
+            document.querySelectorAll('.payment-tab').forEach(t => {
+                t.classList.remove('active', 'border-primary', 'text-neutral-300');
+                t.classList.add('border-transparent', 'text-neutral-500');
+            });
+            this.classList.add('active', 'border-primary');
+            this.classList.remove('border-transparent', 'text-neutral-500');
+            
+            // Show/hide forms
+            document.querySelectorAll('.payment-method-form').forEach(form => {
+                form.style.display = 'none';
+                form.classList.add('hidden');
+            });
+            
+            document.getElementById(method + 'Form').style.display = 'block';
+            document.getElementById(method + 'Form').classList.remove('hidden');
+        });
+    });
+
+    // Card payment
+    function processPayment(e) {
+        e.preventDefault();
+        
+        fetch(`/process-payment/{{ showtime.id }}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                'payment_method': 'card',
+                'bank_name': document.querySelector('[name="bank_name"]').value,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                alert('Xato: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Upayx payment
+    function processUpayx(e) {
+        e.preventDefault();
+        alert('Upayx to\'loviga yo\'naltirilmoqdasiz...');
+        // Backend tomonida Upayx API bilan integrate qilish kerak
+        fetch(`/process-payment/{{ showtime.id }}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
+            },
+            body: new FormData(document.getElementById('upaxyxForm'))
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            }
+        });
+    }
+
+    // Click payment
+    function processClick(e) {
+        e.preventDefault();
+        alert('Click to\'loviga yo\'naltirilmoqdasiz...');
+        // Backend tomonida Click API bilan integrate qilish kerak
+        fetch(`/process-payment/{{ showtime.id }}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
+            },
+            body: new FormData(document.getElementById('clickForm'))
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            }
+        });
+    }
+
+    // Payme payment
+    function processPayme(e) {
+        e.preventDefault();
+        alert('Payme to\'loviga yo\'naltirilmoqdasiz...');
+        // Backend tomonida Payme API bilan integrate qilish kerak
+        fetch(`/process-payment/{{ showtime.id }}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
+            },
+            body: new FormData(document.getElementById('paymeForm'))
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            }
+        });
+    }
+</script>
+{% endblock %}

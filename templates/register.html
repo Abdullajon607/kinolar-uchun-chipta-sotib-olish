@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Cyber-Kino | Ro'yxatdan O'tish{% endblock %}
+
+{% block content %}
+<main class="flex items-center justify-center min-h-screen px-6 pt-24">
+    <div class="w-full max-w-md">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #adc6ff; font-size: 32px; margin: 0; font-weight: 900;">Cyber-Kino</h1>
+            <p style="color: #666; font-size: 11px; text-transform: uppercase; margin-top: 5px; letter-spacing: 2px;">Ro'yxatdan o'tish</p>
+        </div>
+
+        {% if messages %}
+            <div style="margin-bottom: 20px;">
+                {% for message in messages %}
+                    <div style="padding: 12px; border-radius: 10px; background: rgba(255, 180, 171, 0.1); border: 1px solid rgba(255, 180, 171, 0.2); color: #ffb4ab; font-size: 12px; text-align: center; margin-bottom: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label style="display: block; font-size: 12px; color: #999; margin-bottom: 8px; font-weight: 500;">Foydalanuvchi Nomi</label>
+                <input type="text" name="username" style="width: 100%; padding: 12px; background: rgba(53, 53, 52, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; color: #e5e2e1; font-size: 14px; outline: none;" placeholder="username" required>
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 12px; color: #999; margin-bottom: 8px; font-weight: 500;">Email</label>
+                <input type="email" name="email" style="width: 100%; padding: 12px; background: rgba(53, 53, 52, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; color: #e5e2e1; font-size: 14px; outline: none;" placeholder="example@gmail.com" required>
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 12px; color: #999; margin-bottom: 8px; font-weight: 500;">Parol</label>
+                <input type="password" name="password" style="width: 100%; padding: 12px; background: rgba(53, 53, 52, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; color: #e5e2e1; font-size: 14px; outline: none;" placeholder="••••••••" required>
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 12px; color: #999; margin-bottom: 8px; font-weight: 500;">Parolni Tasdiqlash</label>
+                <input type="password" name="password_confirm" style="width: 100%; padding: 12px; background: rgba(53, 53, 52, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; color: #e5e2e1; font-size: 14px; outline: none;" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" style="width: 100%; padding: 14px; background: #4b8eff; color: #00285c; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; font-size: 16px;">Ro'yxatdan O'tish</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 25px; font-size: 12px;">
+            <span style="color: #555;">Akkauntingiz bormi?</span> 
+            <a href="{% url 'cinema:login' %}" style="color: #adc6ff; text-decoration: none; font-weight: bold; margin-left: 5px;">Kirish</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

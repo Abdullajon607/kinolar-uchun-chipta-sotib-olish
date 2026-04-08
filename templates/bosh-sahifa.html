@@ -1,272 +1,657 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html class="dark" lang="uz">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              'on-primary-container': '#00285c',
-              'on-surface': '#e5e2e1',
-              'on-primary-fixed': '#001a41',
-              'on-background': '#e5e2e1',
-              'on-tertiary-fixed-variant': '#7c2e00',
-              'on-secondary-fixed': '#001a41',
-              secondary: '#adc6ff',
-              'tertiary-fixed': '#ffdbcc',
-              'on-tertiary-container': '#4c1a00',
-              background: '#131313',
-              'inverse-on-surface': '#313030',
-              'on-tertiary': '#571e00',
-              'inverse-surface': '#e5e2e1',
-              tertiary: '#ffb595',
-              'secondary-container': '#26467d',
-              'surface-container-highest': '#353534',
-              'on-primary': '#002e69',
-              'tertiary-container': '#ef6719',
-              'surface-variant': '#353534',
-              'surface-container-high': '#2a2a2a',
-              'on-error-container': '#ffdad6',
-              'secondary-fixed-dim': '#adc6ff',
-              'surface-dim': '#131313',
-              'surface-container': '#201f1f',
-              'surface-container-low': '#1c1b1b',
-              'on-tertiary-fixed': '#351000',
-              surface: '#131313',
-              'surface-bright': '#393939',
-              'on-secondary-fixed-variant': '#26467d',
-              'on-secondary': '#082f65',
-              'outline-variant': '#414755',
-              'surface-container-lowest': '#0e0e0e',
-              'on-primary-fixed-variant': '#004493',
-              'on-error': '#690005',
-              'error-container': '#93000a',
-              'primary-fixed': '#d8e2ff',
-              'primary-fixed-dim': '#adc6ff',
-              'secondary-fixed': '#d8e2ff',
-              error: '#ffb4ab',
-              'primary-container': '#4b8eff',
-              'on-secondary-container': '#98b5f3',
-              outline: '#8b90a0',
-              'on-surface-variant': '#c1c6d7',
-              'tertiary-fixed-dim': '#ffb595',
-              primary: '#adc6ff',
-              'inverse-primary': '#005bc1',
-              'surface-tint': '#adc6ff'
-            },
-            borderRadius: {
-              DEFAULT: '0.25rem',
-              lg: '0.5rem',
-              xl: '0.75rem',
-              '2xl': '1rem',
-              '3xl': '1.5rem',
-              full: '9999px'
-            },
-            fontFamily: {
-              headline: ['Inter'],
-              body: ['Inter'],
-              label: ['Inter']
-            }
-          }
+{% block title %}Cyber-Kino | Bosh Sahifa{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #0f0f1e 100%);
+    }
+
+    .hero-background {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: linear-gradient(135deg, rgba(75, 142, 255, 0.1) 0%, rgba(75, 142, 255, 0.05) 50%, transparent 100%);
+    }
+
+    .hero-animated-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .animated-sphere {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(75, 142, 255, 0.15) 0%, rgba(75, 142, 255, 0.05) 100%);
+        filter: blur(40px);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .sphere-1 {
+        width: 400px;
+        height: 400px;
+        top: -100px;
+        right: -100px;
+        animation-delay: 0s;
+    }
+
+    .sphere-2 {
+        width: 300px;
+        height: 300px;
+        bottom: -50px;
+        left: 10%;
+        background: linear-gradient(135deg, rgba(38, 99, 235, 0.1) 0%, rgba(75, 142, 255, 0.05) 100%);
+        animation-delay: 2s;
+    }
+
+    .sphere-3 {
+        width: 250px;
+        height: 250px;
+        top: 50%;
+        right: 15%;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(75, 142, 255, 0.03) 100%);
+        animation-delay: 4s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
         }
-      }
-    </script>
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .glass-card {
+        50% {
+            transform: translateY(-30px);
+        }
+    }
+
+    .animated-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(75, 142, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 142, 255, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        background-position: 0 0;
+        animation: moveGrid 20s linear infinite;
+        z-index: 1;
+        opacity: 0.3;
+    }
+
+    @keyframes moveGrid {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(50px);
+        }
+    }
+
+    .hero-gradient {
+        background: linear-gradient(to top, #131313 5%, transparent 60%), 
+                    linear-gradient(to right, #131313 0%, transparent 40%);
+    }
+
+    .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .hero-left {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        z-index: 20;
+    }
+
+    .hero-right {
+        display: flex;
+        justify-content: flex-end;
+        z-index: 10;
+    }
+
+    .hero-poster {
+        width: 100%;
+        max-width: 400px;
+        height: 550px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        transform: perspective(1000px) rotateY(-15deg);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 2px solid rgba(75, 142, 255, 0.2);
+        position: relative;
+    }
+
+    .hero-poster:hover {
+        transform: perspective(1000px) rotateY(0deg);
+        box-shadow: 0 40px 80px rgba(75, 142, 255, 0.3);
+    }
+
+    .hero-poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .play-button-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .hero-poster:hover .play-button-overlay {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .play-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(75, 142, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 30px rgba(75, 142, 255, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    .hero-poster:hover .play-button {
+        transform: scale(1.1);
+        background: #4b8eff;
+        box-shadow: 0 0 40px rgba(75, 142, 255, 0.8);
+    }
+
+    .play-button span {
+        color: white;
+        font-size: 28px;
+        margin-left: 4px;
+    }
+
+    /* Carousel Styles */
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .carousel-wrapper {
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 1.5rem;
+        scroll-behavior: smooth;
+        padding-bottom: 1rem;
+    }
+
+    .carousel-item {
+        flex: 0 0 calc(25% - 1.125rem);
+        min-width: 200px;
+    }
+
+    .carousel-item-inner {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+    }
+
+    .carousel-item-inner:hover {
+        transform: scale(1.05) translateY(-10px);
+    }
+
+    .carousel-item-inner:hover .carousel-overlay {
+        opacity: 1;
+    }
+
+    .carousel-image {
+        width: 100%;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        border-radius: 16px;
+        background: rgba(100, 100, 100, 0.2);
+    }
+
+    .carousel-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 16px;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.5rem;
+        z-index: 10;
+    }
+
+    .carousel-overlay a {
+        width: 100%;
+        padding: 0.75rem;
+        background: #4b8eff;
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-overlay a:hover {
+        background: #2563eb;
+    }
+
+    .carousel-rating {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(75, 142, 255, 0.2);
+        border: 1px solid rgba(173, 198, 255, 0.3);
+        color: #adc6ff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 20;
+        backdrop-filter: blur(10px);
+    }
+
+    .carousel-controls {
+        position: absolute;
+        top: -3rem;
+        right: 0;
+        display: flex;
+        gap: 0.5rem;
+        z-index: 30;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(75, 142, 255, 0.2);
+        border: 1px solid rgba(173, 198, 255, 0.3);
+        color: #adc6ff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-btn:hover {
+        background: rgba(75, 142, 255, 0.4);
+        border-color: #adc6ff;
+    }
+
+    .carousel-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #e5e2e1;
+    }
+
+    .section-subtitle {
+        color: #adc6ff;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4b8eff 0%, #2563eb 100%);
+        padding: 16px 32px;
+        border-radius: 12px;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 8px 30px rgba(75, 142, 255, 0.3);
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(75, 142, 255, 0.5);
+        filter: brightness(1.1);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.95);
+    }
+
+    .btn-secondary {
         background: rgba(53, 53, 52, 0.4);
         backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .hero-gradient {
-        background: linear-gradient(to top, #131313 5%, transparent 60%), linear-gradient(to right, #131313 0%, transparent 40%);
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
-  </head>
-  <body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
-    <!-- TopAppBar -->
-    <header class="fixed top-0 w-full z-50 bg-neutral-950/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-      <div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
-        <div class="flex items-center gap-4">
-          <span class="material-symbols-outlined text-on-surface cursor-pointer hover:brightness-110 transition-all">menu</span>
-          <h1 class="text-2xl font-bold tracking-tighter text-blue-500 font-['Inter']">Cyber-Kino</h1>
-        </div>
-        <nav class="hidden md:flex items-center gap-8">
-          <a class="text-blue-400 font-bold font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="#">Bosh sahifa</a>
-          <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="#">Qidiruv</a>
-          <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="#">Chiptalarim</a>
-          <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="#">Profil</a>
-        </nav>
-        <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20 cursor-pointer active:scale-90 transition-transform">
-          <img class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a friendly expression against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ_0H9JFGYop_PRpbTRQegc-T4tj1EGBKDgI0mIPVwZbSGDYj_q_rgwVburm9azsgKJ-XBoUE2-skZeun2a7xX0hIxWSaUKnKte_qkZSv-YncSR-BEitB3gqNanrkfhXZmlGQKEtrGZAtigphW4vgDKKYV042bCyZ5DfdxBxCIylo4_kb3hzpVv6htMH3NV4vJ5RXw9MqAz6baBB2kjW7UukBTRiSW3eSznhegXkCl0fjT6w_DEohtao1jqjoFO1hkNY94smbrtn0" />
-        </div>
-      </div>
-    </header>
-    <main class="pb-24">
-      <!-- Hero Section -->
-      <section class="relative w-full h-[751px] md:h-screen overflow-hidden">
+        padding: 16px 32px;
+        border-radius: 12px;
+        color: #e5e2e1;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(75, 142, 255, 0.15);
+        border-color: rgba(173, 198, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .premium-tag {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(75, 142, 255, 0.2);
+        border: 1px solid rgba(173, 198, 255, 0.3);
+        border-radius: 24px;
+        color: #adc6ff;
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        backdrop-filter: blur(10px);
+        width: fit-content;
+    }
+
+    .hero-text {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .hero-content {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-right {
+            justify-content: center;
+        }
+
+        .hero-poster {
+            max-width: 300px;
+            height: 400px;
+        }
+
+        .carousel-item {
+            flex: 0 0 calc(33.333% - 1rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 20px;
+        }
+
+        .carousel-item {
+            flex: 0 0 calc(50% - 0.75rem);
+        }
+
+        .hero-poster {
+            max-width: 250px;
+            height: 350px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .carousel-item {
+            flex: 0 0 calc(100% - 0.75rem);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="pb-24">
+    <!-- Hero Section -->
+    <section class="hero-section relative w-full pt-16 pb-12 md:pb-24">
         <div class="absolute inset-0 z-0">
-          <img class="w-full h-full object-cover" data-alt="epic cinematic landscape of a desert planet with orange sand dunes and a dramatic hazy sky at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJiIgwRBBIxV9dInQ8DHudn3bSl4brIkDro99YPvO9IMaOGX2_ftSJpHS0APCmWMqE1YijlWl0JEr4XKWPn0jcUCw_loaiS2Ikmj6MHJzDmM_Concx-9RB8UPpAFvvmmIn84sC6AhQj4_8etYuexoFdfkEwWE-yBuVUOVllMhd9xf3CyCCyjq0jvibtIIbWieYnwYI8gETndHYKQW1DG9bUCT-CosMMxRK6eSdrwa58QsPffOvvHpbIibdnu9fnxkNDn-032aHuI4" />
-          <div class="absolute inset-0 hero-gradient"></div>
-        </div>
-        <div class="relative z-10 h-full flex flex-col justify-end px-6 md:px-12 pb-20 max-w-7xl mx-auto">
-          <div class="flex flex-col items-start gap-4">
-            <span class="px-3 py-1 bg-primary-container/20 text-primary rounded-full text-[10px] uppercase tracking-[0.2em] font-bold backdrop-blur-md border border-primary/20">PREMYERA</span>
-            <h2 class="text-5xl md:text-8xl font-black tracking-tighter text-on-surface max-w-3xl leading-[0.9]">DUNE: PART TWO</h2>
-            <div class="flex items-center gap-6 mt-4 text-on-surface-variant font-medium">
-              <span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span> 9.2</span>
-              <span>•</span>
-              <span>Fantastika, Sarguzasht</span>
-              <span>•</span>
-              <span>2s 46d</span>
+            <div class="hero-background"></div>
+            <div class="hero-animated-bg">
+                <div class="animated-sphere sphere-1"></div>
+                <div class="animated-sphere sphere-2"></div>
+                <div class="animated-sphere sphere-3"></div>
+                <div class="animated-grid"></div>
             </div>
-            <p class="mt-6 text-on-surface-variant max-w-xl text-lg leading-relaxed hidden md:block">Pol Atreydes Chani va Fremenlar bilan birlashib, o'z oilasini yo'q qilgan fitnachilardan qasos olish yo'lida jang qiladi. U koinot taqdirini hal qiluvchi tanlov qarshisida turibdi.</p>
-            <div class="mt-8 flex flex-wrap gap-4">
-              <button class="px-8 py-4 bg-primary-container text-on-primary-container font-bold rounded-xl flex items-center gap-3 hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary-container/20">
-                <span class="material-symbols-outlined">confirmation_number</span>
-                Xarid qilish
-              </button>
-              <button class="px-8 py-4 glass-card text-on-surface font-bold rounded-xl flex items-center gap-3 hover:bg-surface-container-highest/60 transition-all border border-white/5">
-                <span class="material-symbols-outlined">play_circle</span>
-                Treylerni ko'rish
-              </button>
-            </div>
-          </div>
+            <div class="absolute inset-0 hero-gradient"></div>
         </div>
-      </section>
-      <!-- Now in Cinemas Grid -->
-      <section class="mt-[-80px] relative z-20 px-6 max-w-7xl mx-auto">
-        <div class="flex items-end justify-between mb-8">
-          <div>
-            <span class="text-primary text-[11px] uppercase tracking-[0.2em] font-bold">Kinozalda</span>
-            <h3 class="text-3xl font-bold tracking-tight text-on-surface mt-1">Hozir kinolarda</h3>
-          </div>
-          <button class="text-primary font-medium hover:underline flex items-center gap-2 text-sm uppercase tracking-wider">Barchasini ko'rish <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- Movie Card 1 -->
-          <div class="group relative flex flex-col gap-4">
-            <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-[1.02]">
-              <img class="w-full h-full object-cover" data-alt="dramatic close up of a vintage movie projector in a dark theater with light beams reflecting off dust particles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGd38IL9KL33W1HXjnDTnAi0onLZ1bvhXVCQ0uMLTp-gsndDQkmR97eTU8JQqNCc4k0YduCGtk0niVGpr7QG_e3CXnUQy11lcIPsGXzIKbgA9GiHCi3EyeH5FLSO0Quaqly2XDLOW1GMlKJcxxqalv4KcW7_id105ctoiGJ9_1h_stCjPtCvFl9asvPkjLQCcxepSxsSc6jroZuRgmdSOmlkwASVcXeo7PidUXAj7Bo87nPxE0BnZi6XLR5s96tfQ2cG-m2hp3zEk" />
-              <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 8.5
-              </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform">Chipta olish</button>
-              </div>
+
+        <div class="relative z-10 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="hero-content">
+                <!-- Left Side: Text Content -->
+                <div class="hero-left hero-text">
+                    <span class="premium-tag">
+                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1; vertical-align: middle;">star</span>
+                        YANGI PREMYERA
+                    </span>
+
+                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-on-surface leading-[1.1]">
+                        {% if featured_movie %}{{ featured_movie.title }}{% else %}Cyber-Kino{% endif %}
+                    </h2>
+
+                    <div class="flex items-center gap-6 text-on-surface-variant font-medium flex-wrap">
+                        {% if featured_movie %}
+                            <span class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                {{ featured_movie.rating }}
+                            </span>
+                            <span>•</span>
+                            <span>{{ featured_movie.genre }}</span>
+                            <span>•</span>
+                            <span>{{ featured_movie.duration }}d</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-on-surface-variant max-w-xl text-base leading-relaxed font-light">
+                        {% if featured_movie %}{{ featured_movie.description|truncatewords:40 }}{% endif %}
+                    </p>
+
+                    <div class="button-group mt-8">
+                        {% if featured_movie %}
+                            <a 
+                                href="{% url 'cinema:movie_detail' featured_movie.id %}" 
+                                class="btn-primary"
+                            >
+                                <span class="material-symbols-outlined">confirmation_number</span>
+                                <span>Xarid qilish</span>
+                            </a>
+                        {% endif %}
+                        
+                        <button 
+                            class="btn-secondary"
+                            onclick="playTrailer()"
+                        >
+                            <span class="material-symbols-outlined">play_circle</span>
+                            <span>Treylerni ko'rish</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side: Poster Image -->
+                <div class="hero-right hidden lg:flex hero-text">
+                    {% if featured_movie %}
+                        <div class="hero-poster" onclick="playTrailer()">
+                            {% if featured_movie.poster %}
+                                <img 
+                                    src="{{ featured_movie.poster.url }}" 
+                                    alt="{{ featured_movie.title }}"
+                                >
+                            {% elif featured_movie.poster_url %}
+                                <img 
+                                    src="{{ featured_movie.poster_url }}" 
+                                    alt="{{ featured_movie.title }}"
+                                >
+                            {% endif %}
+                            <div class="play-button-overlay">
+                                <div class="play-button">
+                                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Categories Carousel -->
+    {% for category_name, movies in categories.items %}
+    <section class="px-6 max-w-7xl mx-auto mb-16">
+        <div class="section-header">
             <div>
-              <h4 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Oppenheimer</h4>
-              <p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest mt-1">Drama, Biografiya</p>
+                <p class="section-subtitle">{{ category_name }}</p>
+                <h3 class="section-title">{{ category_name }} kinolari</h3>
             </div>
-          </div>
-          <!-- Movie Card 2 -->
-          <div class="group relative flex flex-col gap-4">
-            <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-[1.02]">
-              <img class="w-full h-full object-cover" data-alt="abstract artistic visualization of cosmic energy swirls in deep purple and cyan colors with sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqdv0F-GSMMB8gk_rzcALeSbkwpkmzZ2P5roBjx1jIoGir9YS_Uy5zisTyeYheNgFKI5QGTr096hndjXoUrJBheC0YbNFEuteRy64pZfUoneNC1PMasHzPSOf2zb0xjfZVK-mX9lwpNcHK5xUbpmfhVuaHtmrl7uixbdLL79TUNxwJI3mXhA6W0omzog7Akv63La15pKBKhUSMawde4Y16nu5EPCkQpsiTTWXEsCIG0w1FTx1xcUFIwHL4v-I2p7_axcHQYPHE_ok" />
-              <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 7.9
-              </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform">Chipta olish</button>
-              </div>
-            </div>
-            <div>
-              <h4 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Yulduzlar jangi</h4>
-              <p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest mt-1">Fantastika, Sarguzasht</p>
-            </div>
-          </div>
-          <!-- Movie Card 3 -->
-          <div class="group relative flex flex-col gap-4">
-            <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-[1.02]">
-              <img class="w-full h-full object-cover" data-alt="modern minimalist architecture of a futuristic city building with glass facades and sharp angles at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbQATOFDfdLhxSqQIq_5yvOguvMs0zG4LvKPR2ubKo4TVg4UyrNpGlhAbKCz_ZZP_tUHGgUEucsURDRK78u4uDDRMrl5GduuzlxbWnGrWiIj1MY1AHpcQKp9pU2pRib-9GzZ8NjR00d6Jo-JqedgNJQdH0n59MmN3wkTOZxAbo_6_8CEOsb2-0p7LeyklttHMmeHjeqlkD_X7Sjf8e3l5_-QPzHAcO2SOFZ2mBM-7-xJDkdhAhLB93e7HQYDQ57sANEDXHnEeZC-k" />
-              <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 8.8
-              </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform">Chipta olish</button>
-              </div>
-            </div>
-            <div>
-              <h4 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Inception</h4>
-              <p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest mt-1">Triller, Fantastika</p>
-            </div>
-          </div>
-          <!-- Movie Card 4 -->
-          <div class="group relative flex flex-col gap-4">
-            <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-[1.02]">
-              <img class="w-full h-full object-cover" data-alt="stunning aerial view of a neon city skyline at night with streaks of moving traffic lights and glowing skyscrapers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2eDYpX4CIv1rZ-L7OWAu-L7BS9TQ9_wAmxIGQGfmVKTWHLWMRGwmymna5USRKQ3LnK04Hq0J7vTL4IhNM1y3dj_Jy9dAqBFsj9vn-p1GET2wT9flfNpGde4vO7t5E0uLZXvfgBHj8KyEcw__Y4vaCHxR44CmqYX4A_8AGe672TLWlOE1xcxE9kfx7lzHa5eT3mBk4WfDMAl5_tfJ5IJU08nLNVaylj4Vmkp5vKm9HDQFRtcsBDL9_bC_FTUoDgicPq43LvMPN6tY" />
-              <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 9.0
-              </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform">Chipta olish</button>
-              </div>
-            </div>
-            <div>
-              <h4 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">The Dark Knight</h4>
-              <p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest mt-1">Ekshn, Kriminal</p>
-            </div>
-          </div>
+            <a 
+                href="{% url 'cinema:search' %}?q={{ category_name }}" 
+                class="text-primary font-medium hover:underline flex items-center gap-2 text-sm uppercase tracking-wider"
+            >
+                Barchasi
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
         </div>
-      </section>
-      <!-- Featured Section (Bento Style) -->
-      <section class="mt-24 px-6 max-w-7xl mx-auto mb-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[400px]">
-          <div class="md:col-span-2 relative rounded-3xl overflow-hidden glass-card p-8 flex flex-col justify-center">
-            <div class="absolute inset-0 -z-10 opacity-30">
-              <img class="w-full h-full object-cover" data-alt="abstract artistic background with liquid chrome textures and blue lighting reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2GV0c532Th69DUB5IaAabc0574WmjP5zfxVN4-Oktu5sv6uLabsxV_pVDfadbUcBXCAtVIQl7AaSIPDuPl1wvZkJvHaadrG3qnnWy5SolvWMlwCHi5F1ich-gkmsFibTC1R0mDjMFQVfdA_bVA9VWDLSc1kz6rmJHTdhEbTUTFY6Qe6BfuL5bPpZarS-6nQWyzXXcbI9ZiLKblVO3N4lE5Z5avSpNrJ09qfXURwapl3kpNzmMS2beteejZROIXJ9BzWvikxz_EA4" />
+
+        <div class="carousel-container">
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn" onclick="scrollCarousel(this, -1)" title="Orqaga">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button class="carousel-btn next-btn" onclick="scrollCarousel(this, 1)" title="Oldinga">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
             </div>
-            <h3 class="text-3xl font-bold tracking-tight mb-2">Maxsus Taklif</h3>
-            <p class="text-on-surface-variant max-w-sm mb-6">IMAX zallarida ilk 2 ta chipta xaridiga 20% chegirma taqdim etiladi.</p>
-            <button class="w-fit px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-all">Chegirmani faollashtirish</button>
-          </div>
-          <div class="relative rounded-3xl overflow-hidden glass-card p-8 flex flex-col items-center justify-center text-center">
-            <div class="w-16 h-16 rounded-2xl bg-primary-container/20 flex items-center justify-center mb-4 border border-primary/30">
-              <span class="material-symbols-outlined text-3xl text-primary">redeem</span>
+
+            <div class="carousel-wrapper">
+                <div class="carousel-track" data-carousel="{{ category_name }}">
+                    {% for movie in movies %}
+                    <div class="carousel-item">
+                        <div class="carousel-item-inner">
+                            {% if movie.poster %}
+                                <img class="carousel-image" src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                            {% elif movie.poster_url %}
+                                <img class="carousel-image" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                            {% else %}
+                                <img class="carousel-image" src="https://via.placeholder.com/200x300?text=No+Image" alt="{{ movie.title }}">
+                            {% endif %}
+                            
+                            <div class="carousel-rating">
+                                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1; vertical-align: middle;">star</span>
+                                {{ movie.rating }}
+                            </div>
+
+                            <div class="carousel-overlay">
+                                <a href="{% url 'cinema:movie_detail' movie.id %}">
+                                    Chipta olish
+                                </a>
+                            </div>
+
+                            <div style="padding-top: 1rem;">
+                                <h4 class="font-bold text-on-surface text-sm truncate">{{ movie.title }}</h4>
+                                <p class="text-xs text-on-surface-variant uppercase tracking-widest mt-0.5">{{ movie.genre }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            <h3 class="text-xl font-bold mb-2">Sodiqlik dasturi</h3>
-            <p class="text-sm text-on-surface-variant">Har bir chiptadan keshbek oling va bepul tomoshalarga ega bo'ling.</p>
-          </div>
         </div>
-      </section>
-    </main>
-    <!-- BottomNavBar -->
-    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-neutral-900/60 backdrop-blur-2xl rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.6)] z-50">
-      <a class="flex flex-col items-center justify-center text-blue-400 after:content-['•'] after:text-[10px] after:mt-0.5 group" href="#">
-        <span class="material-symbols-outlined group-active:scale-90 transition-transform">home</span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Bosh sahifa</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="#">
-        <span class="material-symbols-outlined group-active:scale-90 transition-transform">search</span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Qidiruv</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="#">
-        <span class="material-symbols-outlined group-active:scale-90 transition-transform">confirmation_number</span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Chiptalarim</span>
-      </a>
-      <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="#">
-        <span class="material-symbols-outlined group-active:scale-90 transition-transform">person</span>
-        <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Profil</span>
-      </a>
-    </nav>
-    <!-- Floating Action Button (FAB) - Suppressed on Home as per rules but technically it's a primary action here for quick booking -->
-    <!-- Suppressing based on Contextual FAB Suppression mandate -->
-  </body>
-</html>
+    </section>
+    {% endfor %}
+</main>
+
+<!-- Trailer Modal -->
+<div id="trailerModal" style="display: none;" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[2000] p-4 cursor-pointer" onclick="closeTrailer()">
+    <div class="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+        <button 
+            onclick="closeTrailer()" 
+            class="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center transition-all"
+        >
+            <span class="material-symbols-outlined text-white">close</span>
+        </button>
+        
+        <video id="trailerVideo" width="100%" height="100%" style="border-radius: 16px;" controls autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-library/sample/BigBuckBunny.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function scrollCarousel(button, direction) {
+        const carousel = button.closest('.carousel-container').querySelector('.carousel-track');
+        const scrollAmount = 300;
+        carousel.scrollBy({
+            left: scrollAmount * direction,
+            behavior: 'smooth'
+        });
+    }
+
+    function playTrailer() {
+        const modal = document.getElementById('trailerModal');
+        const video = document.getElementById('trailerVideo');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        video.play();
+    }
+
+    function closeTrailer() {
+        const modal = document.getElementById('trailerModal');
+        const video = document.getElementById('trailerVideo');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        video.pause();
+        video.currentTime = 0;
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTrailer();
+        }
+    });
+</script>
+{% endblock %}

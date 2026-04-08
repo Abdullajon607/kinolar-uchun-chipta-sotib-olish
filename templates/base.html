@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="dark" lang="uz">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cyber-Kino{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'on-primary-container': '#00285c',
+                        'on-surface': '#e5e2e1',
+                        'on-primary-fixed': '#001a41',
+                        'on-background': '#e5e2e1',
+                        'on-tertiary-fixed-variant': '#7c2e00',
+                        'on-secondary-fixed': '#001a41',
+                        secondary: '#adc6ff',
+                        'tertiary-fixed': '#ffdbcc',
+                        'on-tertiary-container': '#4c1a00',
+                        background: '#131313',
+                        'inverse-on-surface': '#313030',
+                        'on-tertiary': '#571e00',
+                        'inverse-surface': '#e5e2e1',
+                        tertiary: '#ffb595',
+                        'secondary-container': '#26467d',
+                        'surface-container-highest': '#353534',
+                        'on-primary': '#002e69',
+                        'tertiary-container': '#ef6719',
+                        'surface-variant': '#353534',
+                        'surface-container-high': '#2a2a2a',
+                        'on-error-container': '#ffdad6',
+                        'secondary-fixed-dim': '#adc6ff',
+                        'surface-dim': '#131313',
+                        'surface-container': '#201f1f',
+                        'surface-container-low': '#1c1b1b',
+                        'on-tertiary-fixed': '#351000',
+                        surface: '#131313',
+                        'surface-bright': '#393939',
+                        'on-secondary-fixed-variant': '#26467d',
+                        'on-secondary': '#082f65',
+                        'outline-variant': '#414755',
+                        'surface-container-lowest': '#0e0e0e',
+                        'on-primary-fixed-variant': '#004493',
+                        'on-error': '#690005',
+                        'error-container': '#93000a',
+                        'primary-fixed': '#d8e2ff',
+                        'primary-fixed-dim': '#adc6ff',
+                        'secondary-fixed': '#d8e2ff',
+                        error: '#ffb4ab',
+                        'primary-container': '#4b8eff',
+                        'on-secondary-container': '#98b5f3',
+                        outline: '#8b90a0',
+                        'on-surface-variant': '#c1c6d7',
+                        'tertiary-fixed-dim': '#ffb595',
+                        primary: '#adc6ff',
+                        'inverse-primary': '#005bc1',
+                        'surface-tint': '#adc6ff'
+                    },
+                    borderRadius: {
+                        DEFAULT: '0.25rem',
+                        lg: '0.5rem',
+                        xl: '0.75rem',
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                        full: '9999px'
+                    },
+                    fontFamily: {
+                        headline: ['Inter'],
+                        body: ['Inter'],
+                        label: ['Inter']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(53, 53, 52, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        body {
+            min-height: 100vh;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-background text-on-surface font-body">
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 bg-neutral-950/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-on-surface cursor-pointer hover:brightness-110 transition-all">menu</span>
+                <a href="{% url 'cinema:home' %}" class="text-2xl font-bold tracking-tighter text-blue-500 font-['Inter']">Cyber-Kino</a>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:home' %}">Bosh sahifa</a>
+                <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:search' %}">Qidiruv</a>
+                {% if user.is_authenticated %}
+                    <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:my_tickets' %}">Chiptalarim</a>
+                    <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:todo_list' %}">To'do List</a>
+                    <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:logout' %}">Chiqish</a>
+                {% else %}
+                    <a class="text-blue-400 font-bold font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:login' %}">Kirish</a>
+                    <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:register' %}">Ro'yxat</a>
+                {% endif %}
+            </nav>
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20 cursor-pointer">
+                {% if user.is_authenticated %}
+                    <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ user.username }}&background=4b8eff&color=fff" alt="Profile">
+                {% else %}
+                    <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=Guest&background=4b8eff&color=fff" alt="Profile">
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="fixed top-20 right-6 z-40 space-y-2 max-w-sm">
+            {% for message in messages %}
+                <div class="glass-card rounded-xl p-4 text-sm {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-neutral-900/60 backdrop-blur-2xl rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.6)] z-50">
+        <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="{% url 'cinema:home' %}">
+            <span class="material-symbols-outlined group-active:scale-90 transition-transform">home</span>
+            <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Bosh sahifa</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="{% url 'cinema:search' %}">
+            <span class="material-symbols-outlined group-active:scale-90 transition-transform">search</span>
+            <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Qidiruv</span>
+        </a>
+        {% if user.is_authenticated %}
+            <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="{% url 'cinema:my_tickets' %}">
+                <span class="material-symbols-outlined group-active:scale-90 transition-transform">confirmation_number</span>
+                <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Chiptalarim</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="{% url 'cinema:todo_list' %}">
+                <span class="material-symbols-outlined group-active:scale-90 transition-transform">task_alt</span>
+                <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">To'do</span>
+            </a>
+        {% else %}
+            <a class="flex flex-col items-center justify-center text-blue-400 hover:text-blue-300 transition-all group" href="{% url 'cinema:login' %}">
+                <span class="material-symbols-outlined group-active:scale-90 transition-transform">login</span>
+                <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Kirish</span>
+            </a>
+        {% endif %}
+    </nav>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

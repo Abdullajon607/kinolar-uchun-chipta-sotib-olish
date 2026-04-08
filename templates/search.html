@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Cyber-Kino | Qidiruv{% endblock %}
+
+{% block content %}
+<main class="pt-24 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+        <!-- Search Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface">Filmlarni Qidiring</h1>
+            <p class="text-on-surface-variant mt-2">Yoqtirgan filmingizni toping</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="glass-card rounded-2xl p-6 mb-8">
+            <form method="GET" class="flex gap-3">
+                <input 
+                    type="text" 
+                    name="q" 
+                    value="{{ query }}"
+                    placeholder="Film nomi, janri yoki aktyorni kiriting..." 
+                    class="flex-1 bg-transparent border-0 border-b border-outline-variant/30 py-2 text-on-surface focus:ring-0 focus:border-primary transition-colors outline-none"
+                    autocomplete="off"
+                >
+                <button 
+                    type="submit"
+                    class="px-6 py-2 bg-primary-container text-on-primary-container font-bold rounded-xl hover:brightness-110 active:scale-95 transition-all"
+                >
+                    <span class="material-symbols-outlined text-sm">search</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for movie in results %}
+            <div class="group relative flex flex-col gap-4">
+                <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                    <img class="w-full h-full object-cover" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                    <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> {{ movie.rating }}
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <a href="{% url 'cinema:movie_detail' movie.id %}" class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-95 transition-transform text-center">Tafsilot</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">{{ movie.title }}</h4>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest mt-1">{{ movie.genre }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-3xl text-primary">search_off</span>
+                </div>
+                <h3 class="text-xl font-bold text-on-surface mb-2">Hech narsa topilmadi</h3>
+                <p class="text-on-surface-variant">{{ query }} uchun natija yo'q</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}
