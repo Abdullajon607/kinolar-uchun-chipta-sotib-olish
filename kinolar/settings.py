@@ -9,7 +9,6 @@ import os
 
 from decouple import Csv, config
 from django.urls import reverse_lazy
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +26,10 @@ ALLOWED_HOSTS = list(
 )
 
 # Serverda Admin panel va to'lov qismi ishlashi uchun ruxsat etilgan xavfsiz domenlar
-CSRF_TRUSTED_ORIGINS = list(
-    config("CSRF_TRUSTED_ORIGINS", default="http://127.0.0.1,http://localhost", cast=Csv())
-)
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.pythonanywhere.com",
+    "http://127.0.0.1",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -73,11 +73,10 @@ TEMPLATES = [
 WSGI_APPLICATION = "kinolar.wsgi.application"
 
 DATABASES = {
-    "default": config(
-        "DATABASE_URL",
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        cast=dj_database_url.parse
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
