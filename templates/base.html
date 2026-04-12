@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html class="dark" lang="uz">
+<html lang="uz">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Cyber-Kino{% endblock %}</title>
+    <script>
+        // Sahifa yuklanishidan oldin saqlangan rejimni tekshirish (Oq ekran miltillamasligi uchun)
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -91,6 +99,28 @@
         body {
             min-height: 100vh;
         }
+        
+        /* Yorug' rejim (Light Mode) uchun maxsus CSS Override'lar */
+        html.light body { background-color: #f8fafc !important; color: #0f172a !important; }
+        html.light .bg-background, html.light .hero-section, html.light .other-categories { background-color: #f8fafc !important; }
+        html.light .text-on-surface, html.light .text-white { color: #0f172a !important; }
+        html.light .text-on-surface-variant, html.light .text-neutral-300, html.light .text-neutral-400 { color: #475569 !important; }
+        html.light .text-neutral-500 { color: #64748b !important; }
+        html.light .glass-card, html.light .glass-effect {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+        }
+        html.light header, html.light .bg-neutral-950\/70, html.light .bottom-action-bar, html.light .bg-neutral-900\/60 {
+            background-color: rgba(255, 255, 255, 0.85) !important;
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        html.light .bg-surface-container-highest, html.light .bg-surface-container-highest\/30 { background-color: rgba(0, 0, 0, 0.05) !important; }
+        html.light .border-outline-variant\/20, html.light .border-neutral-700\/50, html.light .border-white\/5 { border-color: rgba(0, 0, 0, 0.1) !important; }
+        html.light input, html.light textarea, html.light select, html.light .bg-\[\#151525\], html.light .bg-\[\#131726\] {
+            background-color: #ffffff !important; border-color: #cbd5e1 !important; color: #0f172a !important;
+        }
+        html.light .hero-gradient { background: linear-gradient(to top, #f8fafc 5%, transparent 60%), linear-gradient(to right, #f8fafc 0%, transparent 40%) !important; }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
@@ -107,18 +137,26 @@
                 <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:search' %}">Qidiruv</a>
                 {% if user.is_authenticated %}
                     <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:my_tickets' %}">Chiptalarim</a>
-                    <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:todo_list' %}">To'do List</a>
                     <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:logout' %}">Chiqish</a>
                 {% else %}
                     <a class="text-blue-400 font-bold font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:login' %}">Kirish</a>
                     <a class="text-neutral-400 font-['Inter'] tracking-tighter hover:text-blue-300 transition-colors duration-300" href="{% url 'cinema:register' %}">Ro'yxat</a>
                 {% endif %}
             </nav>
-            <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20 cursor-pointer">
+            <div class="flex items-center gap-3">
+                <!-- Rejimni almashtirish tugmasi -->
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors border border-outline-variant/20 bg-transparent" title="Rejimni o'zgartirish">
+                    <span class="material-symbols-outlined text-on-surface" id="themeIcon">light_mode</span>
+                </button>
+                
                 {% if user.is_authenticated %}
-                    <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ user.username }}&background=4b8eff&color=fff" alt="Profile">
+                    <a href="{% url 'cinema:profile' %}" title="Mening profilim" class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20 cursor-pointer block hover:ring-2 hover:ring-primary transition-all">
+                        <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ user.username }}&background=4b8eff&color=fff" alt="Profile">
+                    </a>
                 {% else %}
-                    <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=Guest&background=4b8eff&color=fff" alt="Profile">
+                    <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+                        <img class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=Guest&background=4b8eff&color=fff" alt="Profile">
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -126,13 +164,27 @@
 
     <!-- Messages -->
     {% if messages %}
-        <div class="fixed top-20 right-6 z-40 space-y-2 max-w-sm">
+        <div id="django-messages" class="fixed top-20 right-6 z-40 space-y-2 max-w-sm" role="status" aria-live="polite">
             {% for message in messages %}
-                <div class="glass-card rounded-xl p-4 text-sm {% if message.tags %}{{ message.tags }}{% endif %}">
+                <div class="glass-card rounded-xl p-4 text-sm border transition-opacity duration-300
+                    {% if 'success' in message.tags %}border-emerald-500/40 text-emerald-100
+                    {% elif 'error' in message.tags %}border-red-500/40 text-red-100
+                    {% elif 'warning' in message.tags %}border-amber-500/40 text-amber-100
+                    {% else %}border-outline-variant/30 text-on-surface{% endif %}">
                     {{ message }}
                 </div>
             {% endfor %}
         </div>
+        <script>
+            (function () {
+                var el = document.getElementById('django-messages');
+                if (!el) return;
+                setTimeout(function () {
+                    el.style.opacity = '0';
+                    setTimeout(function () { el.remove(); }, 400);
+                }, 6000);
+            })();
+        </script>
     {% endif %}
 
     <!-- Main Content -->
@@ -153,10 +205,6 @@
                 <span class="material-symbols-outlined group-active:scale-90 transition-transform">confirmation_number</span>
                 <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">Chiptalarim</span>
             </a>
-            <a class="flex flex-col items-center justify-center text-neutral-500 hover:text-neutral-200 transition-all group" href="{% url 'cinema:todo_list' %}">
-                <span class="material-symbols-outlined group-active:scale-90 transition-transform">task_alt</span>
-                <span class="font-['Inter'] text-[11px] uppercase tracking-[0.1em]">To'do</span>
-            </a>
         {% else %}
             <a class="flex flex-col items-center justify-center text-blue-400 hover:text-blue-300 transition-all group" href="{% url 'cinema:login' %}">
                 <span class="material-symbols-outlined group-active:scale-90 transition-transform">login</span>
@@ -166,5 +214,29 @@
     </nav>
 
     {% block extra_js %}{% endblock %}
+    
+    <script>
+        // Rejimni almashtiruvchi mantiq
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.replace('dark', 'light');
+                localStorage.setItem('theme', 'light');
+                if (icon) icon.textContent = 'dark_mode'; // Oyni chiqarish
+            } else {
+                html.classList.replace('light', 'dark');
+                localStorage.setItem('theme', 'dark');
+                if (icon) icon.textContent = 'light_mode'; // Quyoshni chiqarish
+            }
+        }
+        
+        // Sahifa yuklanganda to'g'ri ikonkani ko'rsatish
+        document.addEventListener('DOMContentLoaded', () => {
+            const icon = document.getElementById('themeIcon');
+            if (icon) icon.textContent = document.documentElement.classList.contains('light') ? 'dark_mode' : 'light_mode';
+        });
+    </script>
 </body>
 </html>

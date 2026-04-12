@@ -6,8 +6,13 @@
 <style>
     .hero-section {
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #0f0f1e 100%);
+        padding: 6rem 0 0 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .hero-background {
@@ -99,19 +104,20 @@
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
         align-items: center;
+        z-index: 10;
+        position: relative;
+        padding: 0 1.5rem;
     }
 
     .hero-left {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        z-index: 20;
     }
 
     .hero-right {
         display: flex;
         justify-content: flex-end;
-        z-index: 10;
     }
 
     .hero-poster {
@@ -177,201 +183,6 @@
         margin-left: 4px;
     }
 
-    /* Carousel Styles */
-    .carousel-container {
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 3rem;
-    }
-
-    .carousel-wrapper {
-        overflow: hidden;
-    }
-
-    .carousel-track {
-        display: flex;
-        gap: 1.5rem;
-        scroll-behavior: smooth;
-        padding-bottom: 1rem;
-    }
-
-    .carousel-item {
-        flex: 0 0 calc(25% - 1.125rem);
-        min-width: 200px;
-    }
-
-    .carousel-item-inner {
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-    }
-
-    .carousel-item-inner:hover {
-        transform: scale(1.05) translateY(-10px);
-    }
-
-    .carousel-item-inner:hover .carousel-overlay {
-        opacity: 1;
-    }
-
-    .carousel-image {
-        width: 100%;
-        aspect-ratio: 2/3;
-        object-fit: cover;
-        border-radius: 16px;
-        background: rgba(100, 100, 100, 0.2);
-    }
-
-    .carousel-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        border-radius: 16px;
-        display: flex;
-        align-items: flex-end;
-        padding: 1.5rem;
-        z-index: 10;
-    }
-
-    .carousel-overlay a {
-        width: 100%;
-        padding: 0.75rem;
-        background: #4b8eff;
-        color: white;
-        border-radius: 8px;
-        text-align: center;
-        font-weight: bold;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .carousel-overlay a:hover {
-        background: #2563eb;
-    }
-
-    .carousel-rating {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        background: rgba(75, 142, 255, 0.2);
-        border: 1px solid rgba(173, 198, 255, 0.3);
-        color: #adc6ff;
-        padding: 0.5rem 0.75rem;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: bold;
-        z-index: 20;
-        backdrop-filter: blur(10px);
-    }
-
-    .carousel-controls {
-        position: absolute;
-        top: -3rem;
-        right: 0;
-        display: flex;
-        gap: 0.5rem;
-        z-index: 30;
-    }
-
-    .carousel-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(75, 142, 255, 0.2);
-        border: 1px solid rgba(173, 198, 255, 0.3);
-        color: #adc6ff;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-btn:hover {
-        background: rgba(75, 142, 255, 0.4);
-        border-color: #adc6ff;
-    }
-
-    .carousel-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-    }
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-    }
-
-    .section-title {
-        font-size: 28px;
-        font-weight: bold;
-        color: #e5e2e1;
-    }
-
-    .section-subtitle {
-        color: #adc6ff;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: bold;
-    }
-
-    .button-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #4b8eff 0%, #2563eb 100%);
-        padding: 16px 32px;
-        border-radius: 12px;
-        color: white;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        box-shadow: 0 8px 30px rgba(75, 142, 255, 0.3);
-        text-decoration: none;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(75, 142, 255, 0.5);
-        filter: brightness(1.1);
-    }
-
-    .btn-primary:active {
-        transform: scale(0.95);
-    }
-
-    .btn-secondary {
-        background: rgba(53, 53, 52, 0.4);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 16px 32px;
-        border-radius: 12px;
-        color: #e5e2e1;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .btn-secondary:hover {
-        background: rgba(75, 142, 255, 0.15);
-        border-color: rgba(173, 198, 255, 0.3);
-        transform: translateY(-2px);
-    }
-
     .premium-tag {
         display: inline-block;
         padding: 8px 16px;
@@ -402,42 +213,327 @@
         }
     }
 
-    @media (max-width: 1024px) {
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4b8eff 0%, #2563eb 100%);
+        padding: 16px 32px;
+        border-radius: 12px;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 8px 30px rgba(75, 142, 255, 0.3);
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(75, 142, 255, 0.5);
+        filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+        background: rgba(53, 53, 52, 0.4);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 16px 32px;
+        border-radius: 12px;
+        color: #e5e2e1;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(75, 142, 255, 0.15);
+        border-color: rgba(173, 198, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Category Slider Styles */
+    .category-section {
+        padding: 0;
+        position: relative;
+        z-index: 15;
+        margin: 0;
+        background: transparent;
+        border: none;
+    }
+
+    .slider-wrapper {
+        position: relative;
+        overflow: hidden;
+        margin-top: 2rem;
+    }
+
+    .slider-controls {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        z-index: 20;
+        pointer-events: none;
+    }
+
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(75, 142, 255, 0.2);
+        border: 1px solid rgba(173, 198, 255, 0.3);
+        color: #adc6ff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+    }
+
+    .slider-btn:hover {
+        background: rgba(75, 142, 255, 0.4);
+        border-color: #adc6ff;
+    }
+
+    .slider-track {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 0 1.5rem;
+        scrollbar-width: none;
+    }
+
+    .slider-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .movie-item {
+        flex: 0 0 calc(25% - 0.75rem);
+        min-width: 180px;
+        position: relative;
+    }
+
+    .movie-poster {
+        width: 100%;
+        aspect-ratio: 2/3;
+        border-radius: 12px;
+        overflow: hidden;
+        background: rgba(100, 100, 100, 0.2);
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .movie-poster:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(75, 142, 255, 0.3);
+    }
+
+    .movie-poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .movie-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1rem;
+        z-index: 10;
+    }
+
+    .movie-poster:hover .movie-overlay {
+        opacity: 1;
+    }
+
+    .movie-overlay a {
+        width: 100%;
+        padding: 0.6rem;
+        background: #4b8eff;
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 13px;
+    }
+
+    .movie-overlay a:hover {
+        background: #2563eb;
+    }
+
+    .movie-rating {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(75, 142, 255, 0.2);
+        border: 1px solid rgba(173, 198, 255, 0.3);
+        color: #adc6ff;
+        padding: 0.4rem 0.7rem;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: bold;
+        z-index: 15;
+        backdrop-filter: blur(10px);
+    }
+
+    .movie-info {
+        margin-top: 0.7rem;
+        min-height: 3rem;
+    }
+
+    .movie-title {
+        font-weight: bold;
+        color: #e5e2e1;
+        font-size: 13px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .movie-genre {
+        font-size: 11px;
+        color: #adc6ff;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 0.3rem;
+    }
+
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.4rem;
+        margin-top: 1rem;
+        padding: 0 1.5rem;
+    }
+
+    .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(75, 142, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background: #4b8eff;
+        width: 20px;
+        border-radius: 3px;
+    }
+
+    /* Below Hero Categories */
+    .other-categories {
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #0f0f1e 100%);
+        padding: 2rem 0;
+    }
+
+    .other-category-section {
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(75, 142, 255, 0.1);
+        max-w-7xl mx-auto;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding: 0 1.5rem;
+    }
+
+    .category-title-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .category-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(75, 142, 255, 0.15);
+        border: 1px solid rgba(75, 142, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4b8eff;
+        font-size: 24px;
+    }
+
+    .category-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #e5e2e1;
+    }
+
+    @media (max-width: 1200px) {
+        .movie-item {
+            flex: 0 0 calc(33.333% - 0.75rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .movie-item {
+            flex: 0 0 calc(50% - 0.75rem);
+        }
+
+        .category-header {
+            padding: 0 1rem;
+        }
+
+        .slider-track {
+            padding: 0 1rem;
+        }
+
+        .slider-dots {
+            padding: 0 1rem;
+        }
+
+        .hero-section {
+            min-height: auto;
+            padding: 2rem 0 0 0;
+        }
+
         .hero-content {
             grid-template-columns: 1fr;
+            padding: 0 1rem;
         }
 
         .hero-right {
             justify-content: center;
         }
-
-        .hero-poster {
-            max-width: 300px;
-            height: 400px;
-        }
-
-        .carousel-item {
-            flex: 0 0 calc(33.333% - 1rem);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .section-title {
-            font-size: 20px;
-        }
-
-        .carousel-item {
-            flex: 0 0 calc(50% - 0.75rem);
-        }
-
-        .hero-poster {
-            max-width: 250px;
-            height: 350px;
-        }
     }
 
     @media (max-width: 480px) {
-        .carousel-item {
+        .movie-item {
             flex: 0 0 calc(100% - 0.75rem);
         }
     }
@@ -445,9 +541,9 @@
 {% endblock %}
 
 {% block content %}
-<main class="pb-24">
-    <!-- Hero Section -->
-    <section class="hero-section relative w-full pt-16 pb-12 md:pb-24">
+<main>
+    <!-- Hero Section + First Category Slider -->
+    <section class="hero-section relative w-full">
         <div class="absolute inset-0 z-0">
             <div class="hero-background"></div>
             <div class="hero-animated-bg">
@@ -459,7 +555,7 @@
             <div class="absolute inset-0 hero-gradient"></div>
         </div>
 
-        <div class="relative z-10 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <div class="hero-content">
                 <!-- Left Side: Text Content -->
                 <div class="hero-left hero-text">
@@ -481,7 +577,7 @@
                             <span>•</span>
                             <span>{{ featured_movie.genre }}</span>
                             <span>•</span>
-                            <span>{{ featured_movie.duration }}d</span>
+                            <span>{{ featured_movie.duration }} daq</span>
                         {% endif %}
                     </div>
 
@@ -500,9 +596,10 @@
                             </a>
                         {% endif %}
                         
-                        <button 
+                        <button
+                            type="button" 
                             class="btn-secondary"
-                            onclick="playTrailer()"
+                            onclick="playTrailer('{% if featured_movie %}{{ featured_movie.trailer_url|escapejs }}{% endif %}')"
                         >
                             <span class="material-symbols-outlined">play_circle</span>
                             <span>Treylerni ko'rish</span>
@@ -513,7 +610,7 @@
                 <!-- Right Side: Poster Image -->
                 <div class="hero-right hidden lg:flex hero-text">
                     {% if featured_movie %}
-                        <div class="hero-poster" onclick="playTrailer()">
+                        <div class="hero-poster" onclick="playTrailer('{% if featured_movie %}{{ featured_movie.trailer_url|escapejs }}{% endif %}')">
                             {% if featured_movie.poster %}
                                 <img 
                                     src="{{ featured_movie.poster.url }}" 
@@ -534,77 +631,166 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Categories Carousel -->
-    {% for category_name, movies in categories.items %}
-    <section class="px-6 max-w-7xl mx-auto mb-16">
-        <div class="section-header">
-            <div>
-                <p class="section-subtitle">{{ category_name }}</p>
-                <h3 class="section-title">{{ category_name }} kinolari</h3>
-            </div>
-            <a 
-                href="{% url 'cinema:search' %}?q={{ category_name }}" 
-                class="text-primary font-medium hover:underline flex items-center gap-2 text-sm uppercase tracking-wider"
-            >
-                Barchasi
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
-
-        <div class="carousel-container">
-            <div class="carousel-controls">
-                <button class="carousel-btn prev-btn" onclick="scrollCarousel(this, -1)" title="Orqaga">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </button>
-                <button class="carousel-btn next-btn" onclick="scrollCarousel(this, 1)" title="Oldinga">
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
-            </div>
-
-            <div class="carousel-wrapper">
-                <div class="carousel-track" data-carousel="{{ category_name }}">
-                    {% for movie in movies %}
-                    <div class="carousel-item">
-                        <div class="carousel-item-inner">
-                            {% if movie.poster %}
-                                <img class="carousel-image" src="{{ movie.poster.url }}" alt="{{ movie.title }}">
-                            {% elif movie.poster_url %}
-                                <img class="carousel-image" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
-                            {% else %}
-                                <img class="carousel-image" src="https://via.placeholder.com/200x300?text=No+Image" alt="{{ movie.title }}">
-                            {% endif %}
-                            
-                            <div class="carousel-rating">
-                                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1; vertical-align: middle;">star</span>
-                                {{ movie.rating }}
+            <!-- First Category Slider (Inside Hero) -->
+            {% if categories %}
+                {% for category, movies in categories.items %}
+                    {% if forloop.first %}
+                    <div class="category-section max-w-7xl mx-auto">
+                        <div class="slider-wrapper">
+                            <div class="slider-controls">
+                                <button class="slider-btn" onclick="slideLeft(this)" title="Orqaga">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                </button>
+                                <button class="slider-btn" onclick="slideRight(this)" title="Oldinga">
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
                             </div>
 
-                            <div class="carousel-overlay">
-                                <a href="{% url 'cinema:movie_detail' movie.id %}">
-                                    Chipta olish
-                                </a>
-                            </div>
+                            <div class="slider-track" data-category="{{ category.slug }}">
+                                {% for movie in movies %}
+                                <div class="movie-item">
+                                    <div class="movie-poster">
+                                        {% if movie.poster %}
+                                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                                        {% elif movie.poster_url %}
+                                            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                                        {% else %}
+                                            <img src="https://via.placeholder.com/180x270?text=No+Image" alt="{{ movie.title }}">
+                                        {% endif %}
+                                        
+                                        <div class="movie-rating">
+                                            <span class="material-symbols-outlined text-[11px]" style="font-variation-settings: 'FILL' 1; vertical-align: middle;">star</span>
+                                            {{ movie.rating }}
+                                        </div>
 
-                            <div style="padding-top: 1rem;">
-                                <h4 class="font-bold text-on-surface text-sm truncate">{{ movie.title }}</h4>
-                                <p class="text-xs text-on-surface-variant uppercase tracking-widest mt-0.5">{{ movie.genre }}</p>
+                                        <div class="movie-overlay">
+                                            <a href="{% url 'cinema:movie_detail' movie.id %}">
+                                                Chipta olish
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="movie-info">
+                                        <h4 class="movie-title">{{ movie.title }}</h4>
+                                        <p class="movie-genre">{{ movie.genre }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
+
+                        <div class="slider-dots" id="dots-{{ category.slug }}">
+                            {% for i in "0123456789" %}
+                                {% if i|add:"0" < movies|length %}
+                                    <span class="dot {% if i == '0' %}active{% endif %}" onclick="goToSlide(this)"></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
-    {% endfor %}
+
+    <!-- Remaining Categories (Below Hero) -->
+    <div class="other-categories">
+        {% if not categories and not featured_movie %}
+        <section class="max-w-3xl mx-auto px-6 py-16 text-center">
+            <div class="glass-card rounded-3xl p-10 border border-outline-variant/20">
+                <span class="material-symbols-outlined text-5xl text-primary mb-4 block" style="font-variation-settings: 'FILL' 1;">movie</span>
+                <h3 class="text-2xl font-bold text-on-surface mb-2">Hozircha filmlar yo'q</h3>
+                <p class="text-on-surface-variant mb-6">Admin panel orqali film va seans qo'shing — keyin ular shu yerda ko'rinadi.</p>
+                <a href="{% url 'cinema:search' %}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-container text-on-primary-container font-bold hover:brightness-110 transition-all">
+                    <span class="material-symbols-outlined text-sm">search</span>
+                    Qidiruv sahifasi
+                </a>
+            </div>
+        </section>
+        {% endif %}
+        {% if categories %}
+            {% for category, movies in categories.items %}
+                {% if not forloop.first %}
+                <section class="other-category-section">
+                    <div class="category-header">
+                        <div class="category-title-group">
+                            <div class="category-icon">
+                                <span class="material-symbols-outlined">{{ category.icon }}</span>
+                            </div>
+                            <div>
+                                <h3 class="category-name">{{ category.name }}</h3>
+                            </div>
+                        </div>
+                        <a 
+                            href="{% url 'cinema:search' %}?category={{ category.slug }}" 
+                            class="text-primary font-medium hover:underline flex items-center gap-2 text-sm uppercase tracking-wider"
+                        >
+                            Barchasi
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </a>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <div class="slider-controls">
+                            <button class="slider-btn" onclick="slideLeft(this)" title="Orqaga">
+                                <span class="material-symbols-outlined">arrow_back</span>
+                            </button>
+                            <button class="slider-btn" onclick="slideRight(this)" title="Oldinga">
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                        </div>
+
+                        <div class="slider-track" data-category="{{ category.slug }}">
+                            {% for movie in movies %}
+                            <div class="movie-item">
+                                <div class="movie-poster">
+                                    {% if movie.poster %}
+                                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                                    {% elif movie.poster_url %}
+                                        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                                    {% else %}
+                                        <img src="https://via.placeholder.com/180x270?text=No+Image" alt="{{ movie.title }}">
+                                    {% endif %}
+                                    
+                                    <div class="movie-rating">
+                                        <span class="material-symbols-outlined text-[11px]" style="font-variation-settings: 'FILL' 1; vertical-align: middle;">star</span>
+                                        {{ movie.rating }}
+                                    </div>
+
+                                    <div class="movie-overlay">
+                                        <a href="{% url 'cinema:movie_detail' movie.id %}">
+                                            Chipta olish
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="movie-info">
+                                    <h4 class="movie-title">{{ movie.title }}</h4>
+                                    <p class="movie-genre">{{ movie.genre }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="slider-dots" id="dots-{{ category.slug }}">
+                        {% for i in "0123456789" %}
+                            {% if i|add:"0" < movies|length %}
+                                <span class="dot {% if i == '0' %}active{% endif %}" onclick="goToSlide(this)"></span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
 </main>
 
 <!-- Trailer Modal -->
 <div id="trailerModal" style="display: none;" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[2000] p-4 cursor-pointer" onclick="closeTrailer()">
-    <div class="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+    <div class="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black" onclick="event.stopPropagation()">
         <button 
             onclick="closeTrailer()" 
             class="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center transition-all"
@@ -612,9 +798,14 @@
             <span class="material-symbols-outlined text-white">close</span>
         </button>
         
-        <video id="trailerVideo" width="100%" height="100%" style="border-radius: 16px;" controls autoplay>
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-library/sample/BigBuckBunny.mp4" type="video/mp4">
-        </video>
+        <iframe 
+            id="trailerIframe" 
+            class="w-full h-full rounded-2xl" 
+            src="" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
     </div>
 </div>
 
@@ -622,30 +813,66 @@
 
 {% block extra_js %}
 <script>
-    function scrollCarousel(button, direction) {
-        const carousel = button.closest('.carousel-container').querySelector('.carousel-track');
-        const scrollAmount = 300;
-        carousel.scrollBy({
-            left: scrollAmount * direction,
-            behavior: 'smooth'
+    function slideLeft(btn) {
+        const track = btn.closest('.slider-wrapper').querySelector('.slider-track');
+        track.scrollBy({ left: -300, behavior: 'smooth' });
+        updateDots(track);
+    }
+
+    function slideRight(btn) {
+        const track = btn.closest('.slider-wrapper').querySelector('.slider-track');
+        track.scrollBy({ left: 300, behavior: 'smooth' });
+        updateDots(track);
+    }
+
+    function updateDots(track) {
+        const category = track.dataset.category;
+        const dotsContainer = document.getElementById(`dots-${category}`);
+        if (!dotsContainer) return;
+        
+        const dots = dotsContainer.querySelectorAll('.dot');
+        const itemWidth = track.querySelector('.movie-item').offsetWidth + 16;
+        const scrollPosition = track.scrollLeft;
+        const currentDot = Math.round(scrollPosition / itemWidth);
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentDot);
         });
     }
 
-    function playTrailer() {
+    function goToSlide(dot) {
+        const dotsContainer = dot.closest('.slider-dots');
+        const category = dotsContainer.id.replace('dots-', '');
+        const track = document.querySelector(`[data-category="${category}"]`);
+        const itemWidth = track.querySelector('.movie-item').offsetWidth + 16;
+        const dots = dotsContainer.querySelectorAll('.dot');
+        const index = Array.from(dots).indexOf(dot);
+        
+        track.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
+        
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === index);
+        });
+    }
+
+    function playTrailer(url) {
+        if (!url) {
+            alert("Ushbu film uchun treyler mavjud emas.");
+            return;
+        }
         const modal = document.getElementById('trailerModal');
-        const video = document.getElementById('trailerVideo');
+        const iframe = document.getElementById('trailerIframe');
+        iframe.src = url;
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        video.play();
     }
 
     function closeTrailer() {
         const modal = document.getElementById('trailerModal');
-        const video = document.getElementById('trailerVideo');
+        const iframe = document.getElementById('trailerIframe');
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
-        video.pause();
-        video.currentTime = 0;
+        iframe.src = '';
     }
 
     document.addEventListener('keydown', function(e) {

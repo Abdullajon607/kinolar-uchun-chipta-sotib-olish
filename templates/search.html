@@ -8,12 +8,21 @@
         <!-- Search Header -->
         <div class="mb-12">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface">Filmlarni Qidiring</h1>
-            <p class="text-on-surface-variant mt-2">Yoqtirgan filmingizni toping</p>
+            <p class="text-on-surface-variant mt-2">
+                {% if filter_category %}
+                    <span class="text-primary font-semibold">{{ filter_category.name }}</span> — yoqtirgan filmingizni toping
+                {% else %}
+                    Yoqtirgan filmingizni toping
+                {% endif %}
+            </p>
         </div>
 
         <!-- Search Box -->
         <div class="glass-card rounded-2xl p-6 mb-8">
             <form method="GET" class="flex gap-3">
+                {% if filter_category %}
+                <input type="hidden" name="category" value="{{ filter_category.slug }}">
+                {% endif %}
                 <input 
                     type="text" 
                     name="q" 
@@ -36,7 +45,13 @@
             {% for movie in results %}
             <div class="group relative flex flex-col gap-4">
                 <div class="aspect-[2/3] rounded-3xl overflow-hidden relative shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                    {% if movie.poster %}
+                    <img class="w-full h-full object-cover" src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    {% elif movie.poster_url %}
                     <img class="w-full h-full object-cover" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                    {% else %}
+                    <img class="w-full h-full object-cover" src="https://via.placeholder.com/400x600?text=No+Image" alt="{{ movie.title }}">
+                    {% endif %}
                     <div class="absolute top-4 right-4 glass-card px-2 py-1 rounded-lg text-xs font-bold text-primary flex items-center gap-1">
                         <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> {{ movie.rating }}
                     </div>
@@ -55,7 +70,9 @@
                     <span class="material-symbols-outlined text-3xl text-primary">search_off</span>
                 </div>
                 <h3 class="text-xl font-bold text-on-surface mb-2">Hech narsa topilmadi</h3>
-                <p class="text-on-surface-variant">{{ query }} uchun natija yo'q</p>
+                <p class="text-on-surface-variant">
+                    {% if query %}{{ query }} uchun natija yo'q{% else %}Bu bo'limda film topilmadi{% endif %}
+                </p>
             </div>
             {% endfor %}
         </div>

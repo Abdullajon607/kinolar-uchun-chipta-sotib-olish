@@ -11,11 +11,13 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('profile/', views.profile_view, name='profile'),
     
     # ========== FILMLAR VA SEANSLAR ==========
     path('movie/<int:movie_id>/', views.movie_detail, name='movie_detail'),
     path('select-seats/<int:showtime_id>/', views.select_seats, name='select_seats'),
     path('search/', views.search, name='search'),
+    path('review/<int:review_id>/delete/', views.delete_review, name='delete_review'),
     
     # ========== BRONIYA VA TO'LOV ==========
     path('save-seats/<int:showtime_id>/', views.save_selected_seats, name='save_seats'),
@@ -26,11 +28,7 @@ urlpatterns = [
     # ========== CHIPTALAR ==========
     path('my-tickets/', views.my_tickets, name='my_tickets'),
     
-    # ========== TO'DO LIST ==========
-    path('todo/', views.todo_list, name='todo_list'),
-    
     # ========== API ENDPOINTS ==========
-    path('api/todos/sync/', views.sync_todos, name='sync_todos'),
     path('api/movies/', views.get_movies_api, name='api_movies'),
     path('api/showtimes/<int:movie_id>/', views.get_showtimes_api, name='api_showtimes'),
 ]

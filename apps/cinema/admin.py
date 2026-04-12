@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Movie, Cinema, Hall, Seat, Showtime, Booking, Ticket, Todo
+from .models import Category, Movie, Cinema, Hall, Seat, Showtime, Booking, Ticket, Review
 
 # ==================== CATEGORY ADMIN ====================
 
@@ -21,6 +21,13 @@ class CategoryAdmin(admin.ModelAdmin):
             'fields': ('is_active',)
         }),
     )
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'movie', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('user__username', 'movie__title', 'text')
 
 
 # ==================== CINEMA ADMIN ====================
@@ -67,6 +74,7 @@ class HallAdmin(admin.ModelAdmin):
     list_display = ('name', 'cinema', 'hall_type', 'total_seats', 'rows', 'columns')
     list_filter = ('cinema', 'hall_type')
     search_fields = ('name', 'cinema__name')
+    readonly_fields = ('total_seats',)
     fieldsets = (
         ('Asosiy ma\'lumot', {
             'fields': ('cinema', 'name', 'hall_type')
@@ -93,7 +101,6 @@ class SeatAdmin(admin.ModelAdmin):
             'fields': ('is_available',)
         }),
     )
-
 
 @admin.register(Showtime)
 class ShowtimeAdmin(admin.ModelAdmin):
@@ -147,26 +154,5 @@ class TicketAdmin(admin.ModelAdmin):
         }),
         ('Holati', {
             'fields': ('is_used', 'created_at')
-        }),
-    )
-
-
-# ==================== TODO ADMIN ====================
-
-@admin.register(Todo)
-class TodoAdmin(admin.ModelAdmin):
-    list_display = ('text', 'user', 'priority', 'completed', 'created_at')
-    list_filter = ('priority', 'completed', 'created_at')
-    search_fields = ('text', 'user__username')
-    readonly_fields = ('created_at', 'updated_at')
-    fieldsets = (
-        ('To\'do ma\'lumot', {
-            'fields': ('user', 'text', 'priority')
-        }),
-        ('Holati', {
-            'fields': ('completed', 'due_date')
-        }),
-        ('Vaqt', {
-            'fields': ('created_at', 'updated_at')
         }),
     )

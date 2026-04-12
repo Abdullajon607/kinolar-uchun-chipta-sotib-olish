@@ -43,6 +43,7 @@
         border-color: #adc6ff;
         box-shadow: 0 0 30px rgba(75, 142, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 15px rgba(0, 0, 0, 0.3);
         transform: scale(1.1) translateY(-2px);
+        color: transparent;
     }
 
     .seat-selected::after {
@@ -189,9 +190,11 @@
 <main class="flex-grow pt-24 px-4 md:px-6 max-w-7xl mx-auto w-full flex flex-col items-center pb-40">
     
     <!-- Screen Section -->
-    <div class="w-full mb-12 relative">
-        <div class="screen-arc w-full"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-neutral-400 text-[12px] uppercase tracking-[0.6em] font-bold">Ekran</div>
+    <div class="w-full mb-12">
+        <div class="relative flex flex-col items-center">
+            <div class="screen-arc w-full max-w-3xl"></div>
+            <p class="text-neutral-400 text-[12px] uppercase tracking-[0.6em] font-bold mt-3">🎬 Ekran</p>
+        </div>
     </div>
 
     <!-- Main Form -->
@@ -234,17 +237,17 @@
                                     data-seat-id="{{ seat.id }}"
                                     data-seat-number="{{ seat.number }}"
                                     data-row="{{ row }}"
-                                    data-price="{{ seat.price }}"
+                                    data-price="{{ showtime.ticket_price }}"
                                     onclick="toggleSeat(this, event)"
                                     title="Qator {{ row }}, O'rindiq {{ seat.number }}"
-                                ></button>
+                            >{{ seat.number }}</button>
                             {% else %}
                                 <button
                                     type="button"
                                     class="seat seat-disabled"
                                     disabled
                                     title="Band"
-                                ></button>
+                            >{{ seat.number }}</button>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -253,6 +256,12 @@
                         {{ row }}
                     </div>
                 </div>
+            {% empty %}
+            <div class="glass-effect rounded-2xl p-8 text-center text-white w-full max-w-lg mx-auto mt-4">
+                <span class="material-symbols-outlined text-4xl mb-3 text-neutral-400">event_seat</span>
+                <h3 class="text-xl font-bold mb-2">O'rindiqlar topilmadi</h3>
+                <p class="text-neutral-300">Bu zal uchun hali o'rindiqlar yaratilmagan. Iltimos, administrator panelidan o'rindiqlarni (Seat) qo'shing.</p>
+            </div>
                 {% endfor %}
             </div>
         </div>
@@ -280,7 +289,15 @@
             <div class="glass-effect rounded-3xl p-8">
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="w-full md:w-2/5">
-                        <img class="w-full h-auto movie-poster" src="{{ showtime.movie.poster_url }}" alt="{{ showtime.movie.title }}">
+                        {% if showtime.movie.poster %}
+                            <img class="w-full h-auto movie-poster" src="{{ showtime.movie.poster.url }}" alt="{{ showtime.movie.title }}">
+                        {% elif showtime.movie.poster_url %}
+                            <img class="w-full h-auto movie-poster" src="{{ showtime.movie.poster_url }}" alt="{{ showtime.movie.title }}">
+                        {% else %}
+                            <div class="w-full movie-poster bg-neutral-800 flex items-center justify-center" style="min-height: 300px;">
+                                <span class="material-symbols-outlined text-6xl text-neutral-600">movie</span>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="w-full md:w-3/5 flex flex-col justify-between">
                         <div>
@@ -349,7 +366,7 @@
 </main>
 
 <script>
-    const showtime_id = {{ showtime.id }};
+    const showtime_id = "{{ showtime.id|default:0 }}";
     const MAX_SEATS = 10;
     const selectedSeats = new Map();
 
@@ -359,7 +376,7 @@
         const seatId = button.dataset.seatId;
         const row = button.dataset.row;
         const number = button.dataset.seatNumber;
-        const price = parseInt(button.dataset.price);
+        const price = parseInt(button.dataset.price) || 0;
         const seatLabel = row + number;
 
         if (button.classList.contains('seat-selected')) {
@@ -425,7 +442,7 @@
 
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="material-symbols-outlined spinner">settings</span> <span>Kutilmoqda...</span>';
+        submitBtn.innerHTML = '<span class="material-symbols-outlined spinner text-xl">settings</span> <span>Kutilmoqda...</span>';
 
         fetch(`/save-seats/${showtime_id}/`, {
             method: 'POST',
@@ -441,14 +458,14 @@
             } else {
                 alert('Xato: ' + (data.message || 'Noma\'lum xato'));
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span class="material-symbols-outlined">arrow_forward</span> <span>Keyingi</span>';
+                submitBtn.innerHTML = '<span class="material-symbols-outlined text-xl">arrow_forward</span> <span>Keyingi</span>';
             }
         })
         .catch(error => {
             console.error('Error:', error);
             alert('Xatolik yuz berdi');
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span class="material-symbols-outlined">arrow_forward</span> <span>Keyingi</span>';
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-xl">arrow_forward</span> <span>Keyingi</span>';
         });
     }
 

@@ -14,8 +14,10 @@
                 <div class="w-32 h-44 flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl">
                     {% if showtime.movie.poster %}
                         <img class="w-full h-full object-cover" src="{{ showtime.movie.poster.url }}" alt="{{ showtime.movie.title }}">
-                    {% else %}
+                    {% elif showtime.movie.poster_url %}
                         <img class="w-full h-full object-cover" src="{{ showtime.movie.poster_url }}" alt="{{ showtime.movie.title }}">
+                    {% else %}
+                        <img class="w-full h-full object-cover" src="https://via.placeholder.com/200x280?text=Poster" alt="{{ showtime.movie.title }}">
                     {% endif %}
                 </div>
                 <div class="flex flex-col justify-between py-1">
@@ -51,213 +53,155 @@
     <section class="lg:col-span-7 space-y-10">
         <div>
             <span class="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-medium">To'lov usuli</span>
-            <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">To'lov turini tanlang</h2>
-        </div>
-
-        <!-- Payment Method Tabs -->
-        <div class="flex gap-4 mb-8 border-b border-outline-variant/20">
-            <button 
-                class="payment-tab active py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-primary"
-                data-method="card"
-            >
-                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">credit_card</span>
-                Karta
-            </button>
-            <button 
-                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
-                data-method="upayx"
-            >
-                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">phone_iphone</span>
-                Upayx
-            </button>
-            <button 
-                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
-                data-method="click"
-            >
-                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">shopping_cart</span>
-                Click
-            </button>
-            <button 
-                class="payment-tab py-3 px-4 font-semibold text-sm uppercase tracking-wider transition-all border-b-2 border-transparent text-neutral-500 hover:text-neutral-300"
-                data-method="payme"
-            >
-                <span class="material-symbols-outlined inline-block mr-2" style="vertical-align: middle;">account_balance_wallet</span>
-                Payme
-            </button>
+            <h2 class="text-3xl font-extrabold tracking-tighter mt-2 text-on-surface">Karta orqali to'lov</h2>
         </div>
 
         <!-- Card Payment Method -->
-        <form id="cardForm" onsubmit="processPayment(event)" class="payment-method-form space-y-8">
+        <form id="paymentForm" onsubmit="processPayment(event)" class="glass-card rounded-3xl p-8 space-y-8 relative overflow-hidden">
             {% csrf_token %}
             <input type="hidden" name="payment_method" value="card">
             
             <div class="space-y-6">
+                <!-- Karta raqami -->
                 <div class="group">
                     <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta raqami</label>
-                    <input type="text" name="card_number" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="1234 5678 9012 3456" required>
-                    <p class="text-[10px] text-neutral-400 mt-2">Istalgan bankni kartasi qabul qilinadi</p>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="cardNumber" 
+                            name="card_number"
+                            class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.15em] text-white focus:ring-0 focus:border-primary outline-none font-mono" 
+                            placeholder="0000 0000 0000 0000" 
+                            maxlength="19" 
+                            required
+                            oninput="detectCardType(this)"
+                        >
+                        <div id="cardIcon" class="absolute right-2 top-3 font-bold text-lg pointer-events-none transition-all duration-300">
+                            💳
+                        </div>
+                    </div>
                 </div>
 
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Bank nomi (ixtiyoriy)</label>
-                    <select name="bank_name" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg text-white focus:ring-0 focus:border-primary outline-none">
-                        <option value="">Tanlash...</option>
-                        <option value="Humo">Humo</option>
-                        <option value="UzCard">UzCard</option>
-                        <option value="Visa">Visa</option>
-                        <option value="Mastercard">Mastercard</option>
-                        <option value="ABL">ABL</option>
-                        <option value="Ipoteka Bank">Ipoteka Bank</option>
-                        <option value="Milliy Bank">Milliy Bank</option>
-                        <option value="Davlat Soxta Banki">Davlat Soxta Banki</option>
-                        <option value="Asaka Bank">Asaka Bank</option>
-                        <option value="Axis Bank">Axis Bank</option>
-                        <option value="Uzbek Turk Bank">Uzbek Turk Bank</option>
-                        <option value="Trans Bank">Trans Bank</option>
-                        <option value="Barkamol Bank">Barkamol Bank</option>
-                        <option value="Yoshlar Bank">Yoshlar Bank</option>
-                        <option value="Qishloq Qurilish Bank">Qishloq Qurilish Bank</option>
-                    </select>
-                </div>
-
+                <!-- Amal qilish muddati va CVV -->
                 <div class="grid grid-cols-2 gap-8">
                     <div class="group">
                         <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Muddati</label>
-                        <input type="text" name="expiry" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="MM/YY" required>
+                        <input 
+                            type="text" 
+                            id="cardExpiry"
+                            name="expiry"
+                            class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none font-mono" 
+                            placeholder="MM/YY" 
+                            maxlength="5" 
+                            required
+                            oninput="formatExpiry(this)"
+                        >
                     </div>
-                    <div class="group">
+                    
+                    <div class="group transition-all duration-500 opacity-0 scale-95 origin-left" id="cvvBox" style="display: none;">
                         <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">CVV</label>
-                        <input type="text" name="cvv" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.2em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="123" required>
+                        <input 
+                            type="password" 
+                            id="cvvInput"
+                            name="cvv"
+                            class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.2em] text-white focus:ring-0 focus:border-primary outline-none font-mono" 
+                            placeholder="•••" 
+                            maxlength="3"
+                        >
                     </div>
                 </div>
-
+                
                 <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta egasining ismi</label>
-                    <input type="text" name="card_holder" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.05em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="ABDULLOH ABDULLOYEV" required>
+                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Karta egasining ismi (ixtiyoriy)</label>
+                    <input type="text" name="card_holder" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.05em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="ISMI FAMILIYASI">
                 </div>
             </div>
 
             <div class="pt-6 space-y-4">
-                <button type="submit" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
-                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">payment</span>
-                    {{ final_total }} UZS - To'lov qilish
+                <button type="submit" id="payBtn" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all flex justify-center items-center gap-3">
+                    <span class="material-symbols-outlined">lock</span>
+                    <span id="payBtnText">{{ final_total }} UZS - To'lov qilish</span>
                 </button>
                 <p class="text-[10px] text-center text-neutral-500 leading-relaxed max-w-xs mx-auto">Tugmani bosish orqali siz xarid qilish qoidalari va ommaviy ofertaga rozilik bildirasiz.</p>
-            </div>
-        </form>
-
-        <!-- Upayx Payment Method -->
-        <form id="upaxyxForm" class="payment-method-form hidden space-y-8" style="display: none;">
-            {% csrf_token %}
-            <input type="hidden" name="payment_method" value="upayx">
-            
-            <div class="space-y-6">
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
-                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
-                <p class="text-sm text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
-                    Upayx orqali to'lovni amalga oshirish uchun tasdiqlash SMS yuboriladi.
-                </p>
-            </div>
-
-            <div class="pt-6 space-y-4">
-                <button type="submit" onclick="processUpayx(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
-                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">phone_iphone</span>
-                    {{ final_total }} UZS - To'lov qilish
-                </button>
-            </div>
-        </form>
-
-        <!-- Click Payment Method -->
-        <form id="clickForm" class="payment-method-form hidden space-y-8" style="display: none;">
-            {% csrf_token %}
-            <input type="hidden" name="payment_method" value="click">
-            
-            <div class="space-y-6">
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
-                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
-                <p class="text-sm text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
-                    Click orqali to'lovni amalga oshirish uchun dasturga yo'naltirilasiz.
-                </p>
-            </div>
-
-            <div class="pt-6 space-y-4">
-                <button type="submit" onclick="processClick(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
-                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">shopping_cart</span>
-                    {{ final_total }} UZS - To'lov qilish
-                </button>
-            </div>
-        </form>
-
-        <!-- Payme Payment Method -->
-        <form id="paymeForm" class="payment-method-form hidden space-y-8" style="display: none;">
-            {% csrf_token %}
-            <input type="hidden" name="payment_method" value="payme">
-            
-            <div class="space-y-6">
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-neutral-500 mb-2 block font-bold">Telefon raqami</label>
-                    <input type="tel" name="phone" class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-lg tracking-[0.1em] text-white focus:ring-0 focus:border-primary outline-none" placeholder="+998 90 123 45 67" required>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl p-6 bg-primary-container/10 border border-primary/20">
-                <p class="text-sm text-on-surface-variant">
-                    <span class="material-symbols-outlined text-sm align-middle mr-2">info</span>
-                    Payme orqali to'lovni amalga oshirish uchun dasturga yo'naltirilasiz.
-                </p>
-            </div>
-
-            <div class="pt-6 space-y-4">
-                <button type="submit" onclick="processPayme(event)" class="w-full h-16 bg-primary-container text-on-primary-container font-extrabold text-lg rounded-2xl shadow-[0_0_20px_rgba(75,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
-                    <span class="material-symbols-outlined" style="display: inline-block; margin-right: 8px;">account_balance_wallet</span>
-                    {{ final_total }} UZS - To'lov qilish
-                </button>
             </div>
         </form>
     </section>
 </main>
 
 <script>
-    // Payment method switching
-    document.querySelectorAll('.payment-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const method = this.dataset.method;
-            
-            // Update active tab
-            document.querySelectorAll('.payment-tab').forEach(t => {
-                t.classList.remove('active', 'border-primary', 'text-neutral-300');
-                t.classList.add('border-transparent', 'text-neutral-500');
-            });
-            this.classList.add('active', 'border-primary');
-            this.classList.remove('border-transparent', 'text-neutral-500');
-            
-            // Show/hide forms
-            document.querySelectorAll('.payment-method-form').forEach(form => {
-                form.style.display = 'none';
-                form.classList.add('hidden');
-            });
-            
-            document.getElementById(method + 'Form').style.display = 'block';
-            document.getElementById(method + 'Form').classList.remove('hidden');
-        });
-    });
+    function detectCardType(input) {
+        let value = input.value.replace(/\D/g, '');
+        let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
+        input.value = formattedValue;
 
-    // Card payment
+        const cvvBox = document.getElementById('cvvBox');
+        const cvvInput = document.getElementById('cvvInput');
+        const cardIcon = document.getElementById('cardIcon');
+
+        if (value.startsWith('8600')) {
+            cardIcon.innerHTML = '<span style="color: #0056A6; font-style: italic;">UZCARD</span>';
+            hideCVV(cvvBox, cvvInput);
+        } else if (value.startsWith('9860')) {
+            cardIcon.innerHTML = '<span style="color: #F37021; font-style: italic;">HUMO</span>';
+            hideCVV(cvvBox, cvvInput);
+        } else if (value.startsWith('4')) {
+            cardIcon.innerHTML = '<span style="color: #1A1F71; font-style: italic;">VISA</span>';
+            showCVV(cvvBox, cvvInput);
+        } else if (value.startsWith('5')) {
+            cardIcon.innerHTML = '<span style="color: #EB001B; font-style: italic;">MASTER</span>';
+            showCVV(cvvBox, cvvInput);
+        } else {
+            cardIcon.innerHTML = '💳';
+            cardIcon.style.color = '#9ca3af';
+            hideCVV(cvvBox, cvvInput);
+        }
+    }
+
+    function showCVV(box, input) {
+        if (box.style.display === 'none' || box.style.display === '') {
+            box.style.display = 'block';
+            setTimeout(() => {
+                box.classList.remove('opacity-0', 'scale-95');
+                box.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            input.required = true;
+        }
+    }
+
+    function hideCVV(box, input) {
+        if (box.style.display === 'block') {
+            box.classList.remove('opacity-100', 'scale-100');
+            box.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 300);
+            input.required = false;
+            input.value = '';
+        }
+    }
+
+    function formatExpiry(input) {
+        let val = input.value.replace(/\D/g, '');
+        if (val.length >= 2) {
+            val = val.substring(0, 2) + '/' + val.substring(2, 4);
+        }
+        input.value = val;
+    }
+
     function processPayment(e) {
         e.preventDefault();
         
+        const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        if (cardNumber.length < 16) {
+            alert('Karta raqami to\'liq kiritilmagan!');
+            return;
+        }
+
+        const payBtn = document.getElementById('payBtn');
+        const payBtnText = document.getElementById('payBtnText');
+        payBtn.disabled = true;
+        payBtnText.innerHTML = 'Iltimos, kuting...';
+
         fetch(`/process-payment/{{ showtime.id }}/`, {
             method: 'POST',
             headers: {
@@ -266,7 +210,7 @@
             },
             body: new URLSearchParams({
                 'payment_method': 'card',
-                'bank_name': document.querySelector('[name="bank_name"]').value,
+                'card_number': cardNumber
             })
         })
         .then(response => response.json())
@@ -275,68 +219,15 @@
                 window.location.href = data.redirect_url;
             } else {
                 alert('Xato: ' + data.message);
+                payBtn.disabled = false;
+                payBtnText.innerHTML = "{{ final_total }} UZS - To'lov qilish";
             }
         })
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Upayx payment
-    function processUpayx(e) {
-        e.preventDefault();
-        alert('Upayx to\'loviga yo\'naltirilmoqdasiz...');
-        // Backend tomonida Upayx API bilan integrate qilish kerak
-        fetch(`/process-payment/{{ showtime.id }}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
-            },
-            body: new FormData(document.getElementById('upaxyxForm'))
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = data.redirect_url;
-            }
-        });
-    }
-
-    // Click payment
-    function processClick(e) {
-        e.preventDefault();
-        alert('Click to\'loviga yo\'naltirilmoqdasiz...');
-        // Backend tomonida Click API bilan integrate qilish kerak
-        fetch(`/process-payment/{{ showtime.id }}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
-            },
-            body: new FormData(document.getElementById('clickForm'))
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = data.redirect_url;
-            }
-        });
-    }
-
-    // Payme payment
-    function processPayme(e) {
-        e.preventDefault();
-        alert('Payme to\'loviga yo\'naltirilmoqdasiz...');
-        // Backend tomonida Payme API bilan integrate qilish kerak
-        fetch(`/process-payment/{{ showtime.id }}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value,
-            },
-            body: new FormData(document.getElementById('paymeForm'))
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = data.redirect_url;
-            }
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
+            payBtn.disabled = false;
+            payBtnText.innerHTML = "{{ final_total }} UZS - To'lov qilish";
         });
     }
 </script>

@@ -59,6 +59,20 @@ class Movie(models.Model):
             return self.poster_url
         else:
             return 'https://via.placeholder.com/300x450?text=No+Image'
+            
+    def save(self, *args, **kwargs):
+        # YouTube oddiy linklarini avtomatik iframe (embed) formatiga o'girish
+        if self.trailer_url:
+            if "watch?v=" in self.trailer_url:
+                video_id = self.trailer_url.split("watch?v=")[1].split("&")[0]
+                self.trailer_url = f"https://www.youtube.com/embed/{video_id}"
+            elif "youtu.be/" in self.trailer_url:
+                video_id = self.trailer_url.split("youtu.be/")[1].split("?")[0]
+                self.trailer_url = f"https://www.youtube.com/embed/{video_id}"
+            elif "shorts/" in self.trailer_url:
+                video_id = self.trailer_url.split("shorts/")[1].split("?")[0]
+                self.trailer_url = f"https://www.youtube.com/embed/{video_id}"
+        super().save(*args, **kwargs)
 
 
 class Cinema(models.Model):
@@ -88,7 +102,7 @@ class Hall(models.Model):
     cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE, related_name='halls', verbose_name="Kinoteatr")
     name = models.CharField(max_length=100, verbose_name="Zal nomi")
     hall_type = models.CharField(max_length=20, choices=HALL_TYPES, verbose_name="Zal turi")
-    total_seats = models.IntegerField(verbose_name="Umumiy o'rindiqlar soni")
+    total_seats = models.IntegerField(default=0, blank=True, verbose_name="Umumiy o'rindiqlar soni")
     rows = models.IntegerField(default=10, verbose_name="Qatorlar soni")
     columns = models.IntegerField(default=12, verbose_name="Ustunlar soni")
     
@@ -98,6 +112,26 @@ class Hall(models.Model):
     
     def __str__(self):
         return f"{self.cinema.name} - {self.name}"
+
+    def save(self, *args, **kwargs):
+        self.total_seats = self.rows * self.columns
+        super().save(*args, **kwargs)
+        
+        # Agar zal o'lchamlari (qator/ustun) o'zgargan bo'lsa, o'rindiqlarni qaytadan chizamiz
+        if self.seats.count() != self.total_seats:
+            # Eski o'rindiqlarni tozalash (yangilash uchun)
+            self.seats.all().delete()
+            
+            row_labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            seats_to_create = []
+            for r in range(min(self.rows, 26)):
+                row_label = row_labels[r]
+                for c in range(1, self.columns + 1):
+                    seats_to_create.append(
+                        Seat(hall=self, row=row_label, number=c, seat_type='regular', is_available=True)
+                    )
+            if seats_to_create:
+                Seat.objects.bulk_create(seats_to_create)
 
 
 class Seat(models.Model):
@@ -195,28 +229,18 @@ class Ticket(models.Model):
         return f"Chipta {self.ticket_number}"
 
 
-# ==================== TODO MODELS ====================
-
-class Todo(models.Model):
-    """To'do modeli"""
-    PRIORITY_CHOICES = [
-        ('low', 'Kam'),
-        ('normal', 'Normal'),
-        ('high', 'Muhim'),
-    ]
-    
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todos', verbose_name="Foydalanuvchi")
-    text = models.CharField(max_length=500, verbose_name="Matn")
-    completed = models.BooleanField(default=False, verbose_name="Yakunlangan")
-    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='normal', verbose_name="Muhimlik")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan sana")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Yangilangan sana")
-    due_date = models.DateTimeField(null=True, blank=True, verbose_name="Bajarilish sanasi")
+class Review(models.Model):
+    """Foydalanuvchilarning kinolarga qoldirgan izohlari"""
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews', verbose_name="Film")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Foydalanuvchi")
+    text = models.TextField(verbose_name="Izoh matni")
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], default=5, verbose_name="Baho (1-5)")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yozilgan vaqt")
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "To'do"
-        verbose_name_plural = "To'dolar"
-    
+        verbose_name = "Izoh"
+        verbose_name_plural = "Izohlar"
+        
     def __str__(self):
-        return self.text[:50]
+        return f"{self.user.username} - {self.movie.title}"
