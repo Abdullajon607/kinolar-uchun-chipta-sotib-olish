@@ -9,6 +9,7 @@ import os
 
 from decouple import Csv, config
 from django.urls import reverse_lazy
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -18,11 +19,16 @@ SECRET_KEY = config(
     default="django-insecure-omj+e!-pzm3420=52!mop^oj*35+7_(ntu5fecwwv$ezw@d_)q",
 )
 
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Ishlab chiqarishda aniq domenlar ro'yxati; LAN uchun .env ga IP qo'shing.
 ALLOWED_HOSTS = list(
     config("ALLOWED_HOSTS", default="127.0.0.1,localhost,*", cast=Csv())
+)
+
+# Serverda Admin panel va to'lov qismi ishlashi uchun ruxsat etilgan xavfsiz domenlar
+CSRF_TRUSTED_ORIGINS = list(
+    config("CSRF_TRUSTED_ORIGINS", default="http://127.0.0.1,http://localhost", cast=Csv())
 )
 
 INSTALLED_APPS = [
@@ -38,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -66,10 +73,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "kinolar.wsgi.application"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": config(
+        "DATABASE_URL",
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        cast=dj_database_url.parse
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -89,6 +97,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -101,3 +110,13 @@ LOGOUT_REDIRECT_URL = reverse_lazy("cinema:home")
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_COOKIE_AGE = 1209600
+
+# Xavfsizlik sozlamalari (Faqat serverda, ya'ni DEBUG=False bo'lganda ishlaydi)
+if not DEBUG:
+    # Server (Render, Heroku, VPS) HTTPS manzilini to'g'ri tanib olishi uchun:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
