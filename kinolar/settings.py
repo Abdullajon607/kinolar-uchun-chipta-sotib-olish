@@ -1,26 +1,25 @@
 """
 Django settings for the kinolar project.
-
 https://docs.djangoproject.com/en/5.2/topics/settings/
 """
 
 from pathlib import Path
-import os
-
 from decouple import Csv, config
 from django.urls import reverse_lazy
 
+# Asosiy papka yo'li
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Ishlab chiqarishda .env da haqiqiy SECRET_KEY ishlating (.env.example ga qarang).
+# Xavfsizlik kaliti
 SECRET_KEY = config(
     "SECRET_KEY",
     default="django-insecure-omj+e!-pzm3420=52!mop^oj*35+7_(ntu5fecwwv$ezw@d_)q",
 )
 
-DEBUG = config("DEBUG", default=False, cast=bool)
+# DIQQAT: Kompyuterda ishlayotganda xatolar ko'rinishi uchun DEBUG=True bo'lishi shart!
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-# Ishlab chiqarishda aniq domenlar ro'yxati; LAN uchun .env ga IP qo'shing.
+# Ruxsat etilgan domenlar
 ALLOWED_HOSTS = list(
     config("ALLOWED_HOSTS", default="127.0.0.1,localhost,*", cast=Csv())
 )
@@ -31,8 +30,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
 ]
 
+# Ilovalar
 INSTALLED_APPS = [
-    "jazzmin",
+    "jazzmin", # Premium dizayn (Har doim eng tepada turadi)
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", # Statik fayllar uchun
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -59,7 +59,7 @@ ROOT_URLCONF = "kinolar.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [BASE_DIR / "templates"], # Zamonaviy Path usuliga o'tkazildi
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -87,25 +87,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+# Til va vaqt sozlamalari
 LANGUAGE_CODE = "uz"
-
 TIME_ZONE = "Asia/Tashkent"
-
 USE_I18N = True
-
 USE_TZ = True
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Statik fayllar (CSS, JS, Rasmlar)
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# Media fayllar (Foydalanuvchi yuklagan fayllar)
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Avtorizatsiya manzillari
 LOGIN_URL = reverse_lazy("cinema:login")
 LOGIN_REDIRECT_URL = reverse_lazy("cinema:home")
 LOGOUT_REDIRECT_URL = reverse_lazy("cinema:home")
@@ -115,7 +114,6 @@ SESSION_COOKIE_AGE = 1209600
 
 # Xavfsizlik sozlamalari (Faqat serverda, ya'ni DEBUG=False bo'lganda ishlaydi)
 if not DEBUG:
-    # Server (Render, Heroku, VPS) HTTPS manzilini to'g'ri tanib olishi uchun:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
     SESSION_COOKIE_SECURE = True
